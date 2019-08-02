@@ -41,3 +41,7 @@ Route::post('system-utility/user-management/edit', 'DashboardSysUser@edit');
 Route::post('system-utility/user-management/user-permission', 'DashboardSysUser@userPermission');
 Route::post('system-utility/user-management/reset', 'DashboardSysUser@reset');
 Route::post('system-utility/user-management/delete', 'DashboardSysUser@delete');
+
+Route::get('master-data/profile', 'MasterDataProfile@index');
+Route::post('master-data/profile/list', 'MasterDataProfile@list');
+Route::post('master-data/profile/edit', 'MasterDataProfile@edit');
