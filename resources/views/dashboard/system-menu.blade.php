@@ -26,10 +26,10 @@
                             <div class="row">
                                 <div class="col-lg-6"></div>
                                 <div class="col-lg-2 mt-2 mt-sm-0">
-                                    <button type="button" class="btn btn-block btn-outline-danger" id="btnHapus">Hapus</button>
+                                    <button type="button" class="btn btn-block btn-outline-danger" id="btnHapus" disabled>Hapus</button>
                                 </div>
                                 <div class="col-lg-2 mt-2 mt-sm-0">
-                                    <button type="button" class="btn btn-block btn-warning" id="btnEdit">Edit</button>
+                                    <button type="button" class="btn btn-block btn-warning" id="btnEdit" disabled>Edit</button>
                                 </div>
                                 <div class="col-lg-2 mt-2 mt-sm-0">
                                     <button type="button" class="btn btn-block btn-primary" id="btnBaru">Baru</button>
@@ -38,18 +38,20 @@
                         </div>
                     </div>
 
-                    <div id="cardData" class="card card-success card-outline d-none">
+                    <div id="cardComponent" class="card card-success card-outline d-none">
                         <div class="card-header">
                             <h3 class="card-title">Tambah data baru</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-sm btn-outline-danger" id="btnClose">
-                                    <i class="fas fa-times"></i>
+                                <button type="button" class="btn btn-sm btn-light" id="btnClose">
+                                    <i class="fas fa-times" style="color: red;"></i>
                                 </button>
                             </div>
                         </div>
                         <form id="dataForm">
                             @csrf
                             <div class="card-body">
+                                <input type="hidden" id="inputType" value="new">
+                                <input type="hidden" id="idMenu" name="id">
                                 <div class="form-group">
                                     <label for="group">Pilih Group</label>
                                     <select id="group" name="group"></select>
@@ -90,45 +92,40 @@
 
 @section('script')
     <script>
-        const btnHapus = document.getElementById('btnHapus');
-        const btnBaru = document.getElementById('btnBaru');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-        const cardData = document.getElementById('cardData');
+        const btnHapus = $('#btnHapus');
+        const btnEdit = $('#btnEdit');
+        const btnBaru = $('#btnBaru');
+        const btnClose = $('#btnClose');
+
+        const cardComponent = $('#cardComponent');
         const group = new SlimSelect({
             select: '#group'
         });
-        let groupData;
+        let groupData = [];
 
-        const iGroup = document.getElementById('group');
-        const iNama = document.getElementById('nama');
-        const iUrl = document.getElementById('url');
-        const iSegment = document.getElementById('segment_name');
-        const iOrder = document.getElementById('ord');
+        const dataForm = $('#dataForm');
+        const inputType = $('#inputType');
+        const iID = $('#idMenu');
+        const iGroup = $('#group');
+        const iNama = $('#nama');
+        const iUrl = $('#url');
+        const iSegment = $('#segment_name');
+        const iOrder = $('#ord');
 
-        function serializeArray(data) {
-            let result = '';
-            data.forEach(function (value,index) {
-                if (result === '') {
-                    result += index+'='+value;
-                } else {
-                    result += '&'+index+'='+value;
-                }
-            })
-        }
+        let selectedData;
 
-        function requestData(data,url,cFunc) {
-            let xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    cFunc(this);
-                }
-            };
-            xhttp.open('POST', url, true);
-            xhttp.send('key=val&kev2=val2');
-        }
-
-        function newData(xhttp) {
-            console.log(xhttp);
+        function resetForm() {
+            iID.val('');
+            iNama.val('');
+            iUrl.val('');
+            iSegment.val('');
+            iOrder.val('');
         }
 
         const tableIndex = $('#tableIndex').DataTable({
@@ -153,21 +150,150 @@
                 { "data": "ord" },
             ],
         });
+        $('#tableIndex tbody').on( 'click', 'tr', function () {
+            let data = tableIndex.row( this ).data();
+            iID.val(data.id);
+            iGroup.val(data.id_group);
+            iNama.val(data.nama);
+            iUrl.val(data.url);
+            iSegment.val(data.segment_name);
+            iOrder.val(data.ord);
+            // console.log(data);
+            if ( $(this).hasClass('selected') ) {
+                $(this).removeClass('selected');
+                btnEdit.attr('disabled','true');
+                btnHapus.attr('disabled','true');
+            } else {
+                tableIndex.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+                btnEdit.removeAttr('disabled');
+                btnHapus.removeAttr('disabled');
+            }
+        });
 
-        btnBaru.onclick = function (e) {
-            e.preventDefault();
-            cardData.classList.remove('d-none');
-            group.setData([
-                {text: 'System Utility', value: '1'}
-            ]);
-            let data = [
-                {group: iGroup.value},
-                {group: iNama.value},
-                {group: iUrl.value},
-                {group: iSegment.value},
-                {group: iOrder.value},
-            ];
-            console.log(data);
-        }
+        $(document).ready(function () {
+            /*
+            Menu Group List
+             */
+            $.ajax({
+                url: "{{ url('system-utility/menu/group') }}",
+                method: "post",
+                success: function (response) {
+                    // console.log(response);
+                    let data = JSON.parse(response);
+                    data.forEach(function(v,i) {
+                        groupData.push(
+                            {text: v.nama, value: v.id}
+                        )
+                    });
+                    group.setData(groupData);
+                }
+            });
+
+            /*
+            Button Action
+             */
+            btnBaru.click(function (e) {
+                e.preventDefault();
+                inputType.val('new');
+                resetForm();
+                cardComponent.removeClass('d-none');
+                $('html, body').animate({
+                    scrollTop: cardComponent.offset().top
+                }, 500);
+            });
+            btnEdit.click(function (e) {
+                e.preventDefault();
+                inputType.val('edit');
+                cardComponent.removeClass('d-none');
+                $('html, body').animate({
+                    scrollTop: cardComponent.offset().top
+                }, 500);
+            });
+            btnHapus.click(function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: iNama.val()+" akan dihapus",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Hapus Data'
+                }).then((result) => {
+                    if (result.value) {
+                        $.ajax({
+                            url: '{{ url('system-utility/menu/delete') }}',
+                            method: 'post',
+                            data: {id: iID.val()},
+                            success: function (response) {
+                                console.log(response);
+                                if (response === 'success') {
+                                    Swal.fire({
+                                        title: 'Data terhapus!',
+                                        type: 'success',
+                                    })
+                                } else {
+                                    Swal.fire({
+                                        title: 'Gagal',
+                                        text: 'Silahkan coba lagi',
+                                        type: 'error',
+                                    })
+                                }
+                            }
+                        });
+                    }
+                });
+
+            });
+            btnClose.click(function (e) {
+                e.preventDefault();
+                $("html, body").animate({ scrollTop: 0 }, 500, function () {
+                    resetForm();
+                    cardComponent.addClass('d-none');
+                    tableIndex.ajax.reload();
+                    btnEdit.attr('disabled','true');
+                    btnHapus.attr('disabled','true');
+                });
+            });
+
+            /*
+            SUBMIT DATA
+            First: Check new or edit data
+             */
+            dataForm.submit(function (e) {
+                e.preventDefault();
+                let url;
+                if (inputType.val() === 'new') {
+                    url = "{{ url('system-utility/menu/add') }}";
+                } else {
+                    url = "{{ url('system-utility/menu/edit') }}";
+                }
+                $.ajax({
+                    url: url,
+                    method: 'post',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response === 'success') {
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Data Tersimpan',
+                                onClose: function () {
+                                    $("html, body").animate({ scrollTop: 0 }, 500, function () {
+                                        cardComponent.addClass('d-none');
+                                        tableIndex.ajax.reload();
+                                    });
+                                }
+                            })
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                'Username atau Password Salah',
+                                'warning'
+                            )
+                        }
+                    }
+                })
+            })
+        });
     </script>
 @endsection

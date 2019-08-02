@@ -7,9 +7,20 @@
 
 {{--    FONT AWESOME --}}
 <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.css') }}">
-{{--    COMPILED CSS --}}
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-<!-- Theme style -->
-<link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/datatables/datatables.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/datatables/FixedColumns-3.2.5/css/fixedColumns.bootstrap4.css') }}">
+
+<!-- DateRangePicker -->
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker-master/daterangepicker.css') }}">
+
+<!-- Slim Select -->
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/slimselect/slimselect.min.css') }}">
