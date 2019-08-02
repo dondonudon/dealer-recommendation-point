@@ -21,6 +21,10 @@ Route::get('login', 'DashboardLogin@index');
 Route::post('login/submit', 'DashboardLogin@submit');
 
 Route::get('system-utility/menu-group', 'DashboardSysMenuGroup@index');
+Route::post('system-utility/menu-group/list', 'DashboardSysMenuGroup@list');
+Route::post('system-utility/menu-group/add', 'DashboardSysMenuGroup@add');
+Route::post('system-utility/menu-group/edit', 'DashboardSysMenuGroup@edit');
+Route::post('system-utility/menu-group/delete', 'DashboardSysMenuGroup@delete');
 
 Route::get('system-utility/menu', 'DashboardSysMenu@index');
 Route::post('system-utility/menu/list', 'DashboardSysMenu@list');

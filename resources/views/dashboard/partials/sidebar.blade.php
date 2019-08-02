@@ -62,7 +62,7 @@ $segment = request()->segments();
                                     $status = 'active';
                                 }
                                 @endphp
-                                <a href="{{ $m['url'] }}" class="nav-link {{ $status }}">
+                                <a href="{{ url($m['url']) }}" class="nav-link {{ $status }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>{{ $m['nama'] }}</p>
                                 </a>
