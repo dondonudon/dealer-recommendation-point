@@ -23,6 +23,14 @@ $segments = request()->segments();
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
+            @if(\Illuminate\Support\Facades\Session::exists('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    Halaman yang anda inginkan tidak tersedia untuk anda, silahkan menghubungi administrator!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
@@ -30,9 +38,11 @@ $segments = request()->segments();
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ url('/') }}">home</a></li>
-                            <li class="breadcrumb-item">{{ $segments[0] }}</li>
-                            <li class="breadcrumb-item active">{{ $segments[1] }}</li>
+                            @if($segments !== [])
+                                <li class="breadcrumb-item"><a href="{{ url('/') }}">home</a></li>
+                                <li class="breadcrumb-item">{{ $segments[0] }}</li>
+                                <li class="breadcrumb-item active">{{ $segments[1] }}</li>
+                            @endif
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

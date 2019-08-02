@@ -19,7 +19,7 @@ $segment = request()->segments();
             </div>
         </div>
         <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">{{ \Illuminate\Support\Facades\Session::get('username') }}</a>
         </div>
     </div>
 
