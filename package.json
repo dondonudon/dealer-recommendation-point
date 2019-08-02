@@ -13,7 +13,7 @@
         "axios": "^0.19",
         "bootstrap": "^4.1.0",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.4.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
@@ -21,5 +21,15 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "vue": "^2.5.17"
+    },
+    "dependencies": {
+        "datatables.net": "^1.10.19",
+        "datatables.net-bs4": "^1.10.19",
+        "datatables.net-fixedcolumns": "^3.2.6",
+        "datatables.net-fixedcolumns-bs4": "^3.2.6",
+        "daterangepicker": "^3.0.5",
+        "moment": "^2.24.0",
+        "slim-select": "^1.23.0",
+        "sweetalert2": "^8.14.0"
     }
 }

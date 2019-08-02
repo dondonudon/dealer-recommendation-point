@@ -2,6 +2,9 @@
 
 return [
 
+    'app_name' => 'Dealer Recommendation Point',
+    'app_name_small' => 'DRM',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
