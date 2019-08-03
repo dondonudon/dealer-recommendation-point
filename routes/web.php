@@ -52,4 +52,4 @@ Route::post('master-data/salesman/user', 'MasterDataSalesman@user');
 Route::post('master-data/salesman/add', 'MasterDataSalesman@add');
 Route::post('master-data/salesman/delete', 'MasterDataSalesman@delete');
 
-//Route::get('master-data/kendaraan', '');
+Route::get('master-data/kendaraan', 'MasterDataKendaraan@index');
