@@ -45,3 +45,9 @@ Route::post('system-utility/user-management/delete', 'DashboardSysUser@delete');
 Route::get('master-data/profile', 'MasterDataProfile@index');
 Route::post('master-data/profile/list', 'MasterDataProfile@list');
 Route::post('master-data/profile/edit', 'MasterDataProfile@edit');
+
+Route::get('master-data/salesman', 'MasterDataSalesman@index');
+Route::post('master-data/salesman/list', 'MasterDataSalesman@list');
+Route::post('master-data/salesman/user', 'MasterDataSalesman@user');
+Route::post('master-data/salesman/add', 'MasterDataSalesman@add');
+Route::post('master-data/salesman/delete', 'MasterDataSalesman@delete');
