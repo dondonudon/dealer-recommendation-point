@@ -53,3 +53,7 @@ Route::post('master-data/salesman/add', 'MasterDataSalesman@add');
 Route::post('master-data/salesman/delete', 'MasterDataSalesman@delete');
 
 Route::get('master-data/kendaraan', 'MasterDataKendaraan@index');
+Route::post('master-data/kendaraan/list', 'MasterDataKendaraan@list');
+Route::post('master-data/kendaraan/add', 'MasterDataKendaraan@add');
+Route::post('master-data/kendaraan/edit', 'MasterDataKendaraan@edit');
+Route::post('master-data/kendaraan/delete', 'MasterDataKendaraan@delete');

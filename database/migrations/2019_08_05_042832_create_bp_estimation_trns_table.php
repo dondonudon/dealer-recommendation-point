@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMsKendaraansTable extends Migration
+class CreateBpEstimationTrnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateMsKendaraansTable extends Migration
      */
     public function up()
     {
-        Schema::create('ms_kendaraan', function (Blueprint $table) {
+        Schema::create('bp_estimation_trns', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category',10);
-            $table->string('model',50);
-            $table->year('tahun');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateMsKendaraansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ms_kendaraans');
+        Schema::dropIfExists('bp_estimation_trns');
     }
 }

@@ -13,10 +13,9 @@
                             <table class="table table-sm table-bordered display nowrap" id="tableIndex" width="100%">
                                 <thead class="bg-dark">
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Nama Segment</th>
-                                    <th>Icon</th>
-                                    <th>Order</th>
+                                    <th>Kategori</th>
+                                    <th>Nama Model</th>
+                                    <th>Tahun</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -50,22 +49,18 @@
                             @csrf
                             <div class="card-body">
                                 <input type="hidden" id="inputType" value="new">
-                                <input type="hidden" id="idGroup" name="id">
+                                <input type="hidden" id="idData" name="id">
                                 <div class="form-group">
-                                    <label for="group">Nama Group</label>
-                                    <input type="text" class="form-control" id="nama" name="nama">
+                                    <label for="group">Kategori</label>
+                                    <select id="kategori" name="kategori"></select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="group">Nama Segment</label>
-                                    <input type="text" class="form-control" id="segment_name" name="segment_name">
+                                    <label for="group">Nama Model</label>
+                                    <input type="text" class="form-control" id="model_name" name="model_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="group">Icon</label>
-                                    <input type="text" class="form-control" id="icon" name="icon">
-                                </div>
-                                <div class="form-group">
-                                    <label for="group">Group Order</label>
-                                    <input type="number" class="form-control" min="1" id="ord" name="ord">
+                                    <label for="group">Tahun</label>
+                                    <input type="text" class="form-control" id="tahun" name="tahun">
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -104,24 +99,33 @@
 
         const dataForm = $('#dataForm');
         const inputType = $('#inputType');
-        const iID = $('#idGroup');
-        const iNama = $('#nama');
-        const iSegment = $('#segment_name');
-        const iIcon = $('#icon');
-        const iOrder = $('#ord');
+        const iID = $('#idData');
+        const iModel = $('#model_name');
+        const iTahun = $('#tahun');
+        const iKategori = new SlimSelect({
+            select: '#kategori',
+            data: [
+                {text: 'SUV', value: 'SUV'},
+                {text: 'Hybrid', value: 'Hybrid'},
+                {text: 'MPV', value: 'MPV'},
+                {text: 'Sedan', value: 'Sedan'},
+                {text: 'Hatchback', value: 'Hatchback'},
+                {text: 'Commercial', value: 'Commercial'},
+                {text: 'Sport', value: 'Sport'},
+            ]
+        });
 
         function resetForm() {
             iID.val('');
-            iNama.val('');
-            iSegment.val('');
-            iIcon.val('');
-            iOrder.val('');
+            iModel.val('');
+            iTahun.val('');
         }
 
         const tableIndex = $('#tableIndex').DataTable({
+            scrollX: true,
             "ajax": {
                 "method": "POST",
-                "url": "{{ url('/system-utility/menu-group/list') }}",
+                "url": "{{ url('master-data/kendaraan/list') }}",
                 "header": {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
                 },
@@ -133,19 +137,17 @@
                 }
             },
             "columns": [
-                { "data": "nama" },
-                { "data": "segment_name" },
-                { "data": "icon" },
-                { "data": "ord" },
+                { "data": "category" },
+                { "data": "model" },
+                { "data": "tahun" },
             ],
         });
         $('#tableIndex tbody').on( 'click', 'tr', function () {
             let data = tableIndex.row( this ).data();
             iID.val(data.id);
-            iNama.val(data.nama);
-            iSegment.val(data.segment_name);
-            iIcon.val(data.icon);
-            iOrder.val(data.ord);
+            $('#kategori').val(data.category);
+            iModel.val(data.model);
+            iTahun.val(data.tahun);
             // console.log(data);
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
@@ -183,7 +185,7 @@
             btnHapus.click(function (e) {
                 e.preventDefault();
                 Swal.fire({
-                    title: iNama.val()+" akan dihapus",
+                    title: iModel.val()+" akan dihapus",
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -192,7 +194,7 @@
                 }).then((result) => {
                     if (result.value) {
                         $.ajax({
-                            url: '{{ url('system-utility/menu-group/delete') }}',
+                            url: '{{ url('master-data/kendaraan/delete') }}',
                             method: 'post',
                             data: {id: iID.val()},
                             success: function (response) {
@@ -237,15 +239,16 @@
                 e.preventDefault();
                 let url;
                 if (inputType.val() === 'new') {
-                    url = "{{ url('system-utility/menu-group/add') }}";
+                    url = "{{ url('master-data/kendaraan/add') }}";
                 } else {
-                    url = "{{ url('system-utility/menu-group/edit') }}";
+                    url = "{{ url('master-data/kendaraan/edit') }}";
                 }
                 $.ajax({
                     url: url,
                     method: 'post',
                     data: $(this).serialize(),
                     success: function (response) {
+                        // console.log(response);
                         if (response === 'success') {
                             Swal.fire({
                                 type: 'success',
@@ -260,7 +263,7 @@
                         } else {
                             Swal.fire(
                                 'Gagal!',
-                                'Username atau Password Salah',
+                                'Silahkan coba lagi',
                                 'warning'
                             )
                         }

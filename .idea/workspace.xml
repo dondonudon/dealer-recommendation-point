@@ -4,6 +4,10 @@
     <list default="true" id="deadf7e9-81dd-451a-8d25-c13127b6b771" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MasterDataKendaraan.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MasterDataKendaraan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/msKendaraan.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/msKendaraan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_03_041648_create_ms_kendaraans_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_03_041648_create_ms_kendaraans_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/masterdata-kendaraan.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/masterdata-kendaraan.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -122,7 +126,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -165,6 +169,9 @@
       <workItem from="1564758989064" duration="8299000" />
       <workItem from="1564774228908" duration="4205000" />
       <workItem from="1564797190015" duration="6934000" />
+      <workItem from="1564972020126" duration="84000" />
+      <workItem from="1564972136193" duration="97000" />
+      <workItem from="1564972347305" duration="5737000" />
     </task>
     <servers />
   </component>
