@@ -74,7 +74,7 @@ class BPEstimationMonitoringFu extends Controller
 
         try {
             DB::table('bp_estimation_mst')
-                ->where('no_estimationn','=',$noEst)
+                ->where('no_estimation','=',$noEst)
                 ->update([
                     'status_fu' => $hasilFU
                 ]);

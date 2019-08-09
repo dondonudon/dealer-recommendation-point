@@ -44,18 +44,27 @@ class BookingGRMonitoring extends Controller
     }
 
     public function list(Request $request) {
-        $date = $request->date_filter;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $statusFU = $request->status_fu;
         try {
-            $menu = DB::table('booking_gr_mst')
-                ->select('no_booking','nama','no_telp','no_pol','model_kendaraan','tahun_kendaraan','tgl_booking','jam_booking','tipe_service')
-                ->whereDate('tgl_booking','=',$date)
-                ->get();
+            if ($statusFU == 'all') {
+                $menu = DB::table('booking_gr_mst')
+                    ->select('no_booking', 'nama', 'no_telp', 'no_pol', 'model_kendaraan', 'tahun_kendaraan', 'tgl_booking', 'jam_booking', 'tipe_service', 'status_fu', 'username', 'created_at')
+                    ->whereBetween('tgl_booking', [$startDate, $endDate])
+                    ->get();
+            } else {
+                $menu = DB::table('booking_gr_mst')
+                    ->select('no_booking', 'nama', 'no_telp', 'no_pol', 'model_kendaraan', 'tahun_kendaraan', 'tgl_booking', 'jam_booking', 'tipe_service', 'status_fu', 'username', 'created_at')
+                    ->where('status_fu', '=', $statusFU)
+                    ->whereBetween('tgl_booking', [$startDate, $endDate])
+                    ->get();
+            }
+            $result['data'] = $menu;
+            return json_encode($result);
         } catch (\Exception $ex) {
-            dd('Exception Block',$ex);
+            return response()->json($ex);
         }
-        $result['data'] = $menu;
-
-        return json_encode($result);
     }
 
     public function keluhan(Request $request) {
@@ -72,5 +81,21 @@ class BookingGRMonitoring extends Controller
         $result['data'] = $keluhan;
 
         return json_encode($result);
+    }
+
+    public function updateFU(Request $request) {
+        $hasilFU = $request->hasil_fu;
+        $noBooking = $request->no_booking;
+
+        try {
+            DB::table('booking_gr_mst')
+                ->where('no_booking','=',$noBooking)
+                ->update([
+                    'status_fu' => $hasilFU
+                ]);
+            return 'success';
+        } catch (\Exception $ex) {
+            return response()->json($ex);
+        }
     }
 }

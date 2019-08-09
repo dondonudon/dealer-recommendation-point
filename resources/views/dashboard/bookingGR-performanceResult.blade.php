@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','Monitoring Booking')
+@section('page title','GR Performance Result')
 
 @section('content')
     <div class="content">
@@ -74,7 +74,7 @@
 
         function updateChart() {
             $.ajax({
-                url: '{{ url("body-paint-estimation/performance-result/list") }}',
+                url: '{{ url("booking-general-repair/performance-result/list") }}',
                 method: 'post',
                 data: {
                     start_date: iStartDate,

@@ -17,6 +17,18 @@
                                         <input type="text" class="form-control form-control-sm" id="dateRange">
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="statusFollowUp">Status Follow UP</label>
+                                        <select class="form-control form-control-sm" id="statusFollowUp">
+                                            <option value="0">Belum Follow Up</option>
+                                            <option value="all">Tampilkan Semua</option>
+                                            <option value="3">HOT</option>
+                                            <option value="2">MEDIUM</option>
+                                            <option value="1">LOW</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -32,6 +44,9 @@
                                     <th>Tgl Booking</th>
                                     <th>Jam Booking</th>
                                     <th>Tipe Service</th>
+                                    <th>Status FU</th>
+                                    <th>User Input</th>
+                                    <th>Tanggal Input</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -90,7 +105,21 @@
                                         <dd class="col-sm-8" id="vTipeService"></dd>
 
                                         <dt class="col-sm-4">Hasil Follow Up</dt>
-                                        <dd class="col-sm-8" id="vTipeService"></dd>
+                                        <dd class="col-sm-8">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <select class="custom-select" id="vHasilFU">
+                                                        <option value="0">Belum Follow Up</option>
+                                                        <option value="3">HOT</option>
+                                                        <option value="2">MEDIUM</option>
+                                                        <option value="1">LOW</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <button class="btn btn-success btn-block" type="button" id="btnUpdateFU">Simpan</button>
+                                                </div>
+                                            </div>
+                                        </dd>
                                     </dl>
                                 </div>
                             </div>
@@ -119,17 +148,29 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        const loading = '<i class="fas fa-spinner fa-pulse"></i>';
 
-        const iRange = $('#dateRange').daterangepicker({
-            singleDatePicker: true,
+        let iStartDate = moment().startOf('week').format('YYYY-MM-DD');
+        let iEndDate = moment().format('YYYY-MM-DD');
+        const iRange = $('#dateRange');
+        iRange.daterangepicker({
+            startDate: moment().startOf('week').format('DD-MM-YYYY'),
+            endDate: moment().format('DD-MM-YYYY'),
             locale: {
                 format: 'DD-MM-YYYY'
             }
         });
+        iRange.on('apply.daterangepicker', function(ev, picker) {
+            iStartDate = picker.startDate.format('YYYY-MM-DD');
+            iEndDate = picker.endDate.format('YYYY-MM-DD');
+        });
+        const iStatusFU = $('#statusFollowUp');
+
         let noBooking;
 
         const btnDetail = $('#btnDetail');
         const btnClose = $('#btnClose');
+        const btnUpdateFU = $('#btnUpdateFU');
 
         const cardComponent = $('#cardComponent');
         let vNoBooking = $('#vNoBooking');
@@ -141,6 +182,7 @@
         let vModel = $('#vModel');
         let vTahunKendaraan = $('#vTahunKendaraan');
         let vTipeService = $('#vTipeService');
+        const vHasilFU = $('#vHasilFU');
 
         function resetForm() {
             vNoBooking.html('');
@@ -156,22 +198,6 @@
 
         let tableIndex = $('#tableIndex').DataTable({
             scrollX: true,
-            "ajax": {
-                "method": "POST",
-                "url": "{{ url('booking-general-repair/monitoring/list') }}",
-                data: {
-                    date_filter: moment().format('YYYY-MM-DD'),
-                },
-                "header": {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
-                },
-                "complete": function (xhr,responseText) {
-                    if (responseText === 'error') {
-                        console.log(xhr);
-                        console.log(responseText);
-                    }
-                }
-            },
             "columns": [
                 { "data": "no_booking" },
                 { "data": "nama" },
@@ -182,6 +208,37 @@
                 { "data": "tgl_booking" },
                 { "data": "jam_booking" },
                 { "data": "tipe_service" },
+                {
+                    "data": "status_fu",
+                    "render": function ( data, type, row, meta ) {
+                        let result;
+                        switch (data) {
+                            case 1:
+                                result = 'LOW';
+                                break;
+
+                            case 2:
+                                result = 'MEDIUM';
+                                break;
+
+                            case 3:
+                                result = 'HIGH';
+                                break;
+
+                            default:
+                                result = 'Belum Follow UP';
+                                break;
+                        }
+                        return result;
+                    }
+                },
+                { "data": "username" },
+                {
+                    "data": "created_at" ,
+                    render: function (data,type,row,meta) {
+                        return moment(data).format('DD-MM-YYYY HH:MM:SS');
+                    }
+                },
             ],
         });
         $('#tableIndex tbody').on( 'click', 'tr', function () {
@@ -217,25 +274,40 @@
             ]
         });
 
+        function updateTableIndex() {
+            $.ajax({
+                url: "{{ url('booking-general-repair/monitoring-dan-follow-up/list') }}",
+                method: "post",
+                data: {
+                    start_date: iStartDate,
+                    end_date: iEndDate,
+                    status_fu: iStatusFU.val()
+                },
+                success: function(response) {
+                    // console.log(response);
+                    let data = JSON.parse(response);
+                    tableIndex.clear().draw();
+                    tableIndex.rows.add(data.data).draw();
+                }
+            })
+        }
+
         $(document).ready(function () {
+            updateTableIndex();
             $('#dateRange').on('apply.daterangepicker', function(ev, picker) {
-                $.ajax({
-                    url: "{{ url('booking-general-repair/monitoring/list') }}",
-                    method: "post",
-                    data: {date_filter: picker.startDate.format('YYYY-MM-DD')},
-                    success: function (response) {
-                        // console.log(response);
-                        let data = JSON.parse(response);
-                        tableIndex.clear().draw();
-                        tableIndex.rows.add(data.data).draw();
-                    }
-                })
+                iStartDate = picker.startDate.format('YYYY-MM-DD');
+                iEndDate = picker.endDate.format('YYYY-MM-DD');
+                updateTableIndex();
+            });
+            iStatusFU.change(function (e) {
+                e.preventDefault();
+                updateTableIndex();
             });
 
             btnDetail.click(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "{{ url('booking-general-repair/monitoring/keluhan') }}",
+                    url: "{{ url('booking-general-repair/monitoring-dan-follow-up/keluhan') }}",
                     method: 'post',
                     data: {no_booking: noBooking},
                     success: function (response) {
@@ -262,6 +334,40 @@
                     btnDetail.attr('disabled','true');
                 });
             });
+            btnUpdateFU.click(function (e) {
+                e.preventDefault();
+
+                let txtDef = btnUpdateFU.html();
+                btnUpdateFU.html(loading);
+                btnUpdateFU.attr('disabled',true);
+
+                $.ajax({
+                    url: "{{ url('booking-general-repair/monitoring-dan-follow-up/update-fu') }}",
+                    method: "post",
+                    data: {hasil_fu: vHasilFU.val(), no_booking: noBooking},
+                    success: function (response) {
+                        console.log(response);
+                        if (response === 'success') {
+                            updateTableIndex();
+                            btnUpdateFU.html(txtDef);
+                            btnUpdateFU.removeAttr('disabled');
+                            Swal.fire({
+                                type: 'success',
+                                title: 'Data tersimpan',
+                            })
+                        } else {
+                            console.log(response);
+                            btnUpdateFU.html(txtDef);
+                            btnUpdateFU.removeAttr('disabled');
+                            Swal.fire({
+                                type: 'error',
+                                title: 'Gagal menyimpan data',
+                                text: 'Silahkan coba lagi',
+                            })
+                        }
+                    }
+                })
+            })
         });
     </script>
 @endsection
