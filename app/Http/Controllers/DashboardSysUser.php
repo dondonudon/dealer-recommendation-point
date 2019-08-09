@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\sysAreaPermission;
 use App\sysMenu;
 use App\sysMenuGroup;
 use App\sysPermission;
@@ -101,6 +102,15 @@ class DashboardSysUser extends Controller
                     'id_menu' => $p
                 ]);
             }
+            if (isset($request->area_permission)) {
+                $areaPermission = $request->area_permission;
+                foreach ($areaPermission as $area) {
+                    sysAreaPermission::create([
+                        'username' => $username,
+                        'id_menu_group' => $area,
+                    ]);
+                }
+            }
         } catch (\Exception $ex) {
             dd('Exception Block',$ex);
         }
@@ -112,6 +122,16 @@ class DashboardSysUser extends Controller
         $username = $request->username;
         $permission = DB::table('sys_permission')
             ->select('id_menu')
+            ->where('username','=',$username)
+            ->get();
+
+        return json_encode($permission);
+    }
+
+    public function areaPermission(Request $request) {
+        $username = $request->username;
+        $permission = DB::table('sys_area_permission')
+            ->select('id_menu_group')
             ->where('username','=',$username)
             ->get();
 

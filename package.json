@@ -30,6 +30,7 @@
         "daterangepicker": "^3.0.5",
         "moment": "^2.24.0",
         "slim-select": "^1.23.0",
+        "spinkit": "^1.2.5",
         "sweetalert2": "^8.14.0"
     }
 }

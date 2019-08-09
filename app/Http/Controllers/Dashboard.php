@@ -17,7 +17,10 @@ class Dashboard extends Controller
         $menu = DB::table('sys_permission')
             ->select('sys_menu.id_group','sys_menu.segment_name','sys_menu.nama','sys_menu.url')
             ->join('sys_menu','sys_menu.id','=','sys_permission.id_menu')
-            ->where('sys_permission.username','=',$username)
+            ->where([
+                ['sys_permission.username','=',$username],
+                ['sys_menu.system','=','website'],
+            ])
             ->get();
 
         $groupSelected = [];

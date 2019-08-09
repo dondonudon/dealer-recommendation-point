@@ -20,6 +20,9 @@
 <!-- Slim Select -->
 <script type="text/javascript" src="{{ asset('vendor/slimselect/slimselect.min.js') }}"></script>
 
+{{-- ApexCharts --}}
+<script type="text/javascript" src="{{ asset('vendor/apexcharts/dist/apexcharts.js') }}"></script>
+
 <script>
     $.ajaxSetup({
         headers: {

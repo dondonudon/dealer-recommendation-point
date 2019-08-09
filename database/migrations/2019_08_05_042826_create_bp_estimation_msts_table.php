@@ -13,8 +13,13 @@ class CreateBpEstimationMstsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bp_estimation_msts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('bp_estimation_mst', function (Blueprint $table) {
+            $table->string('no_estimation',10)->primary();
+            $table->string('nama',75);
+            $table->string('no_telp',20);
+            $table->string('no_pol',10);
+            $table->string('model_kendaraan',25);
+            $table->decimal('grand_total',12,2);
             $table->timestamps();
         });
     }

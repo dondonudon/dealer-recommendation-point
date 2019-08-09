@@ -46,7 +46,7 @@ class DashboardSysMenu extends Controller
 
     public function list() {
         $menu = DB::table('sys_menu')
-            ->select('sys_menu.id','id_group','sys_menu_group.nama as group','sys_menu.nama','sys_menu.url','sys_menu.segment_name','sys_menu.ord')
+            ->select('sys_menu.id','id_group','system','sys_menu_group.nama as group','sys_menu.nama','sys_menu.url','sys_menu.segment_name','sys_menu.ord')
             ->join('sys_menu_group','sys_menu.id_group','=','sys_menu_group.id')
             ->get();
         $result['data'] = $menu;
@@ -64,6 +64,7 @@ class DashboardSysMenu extends Controller
 
     public function add(Request $request) {
         $group = $request->group;
+        $system = $request->system_type;
         $nama = $request->nama;
         $url = $request->url;
         $segment_name = $request->segment_name;
@@ -72,6 +73,7 @@ class DashboardSysMenu extends Controller
         try {
             sysMenu::create([
                 'id_group' => $group,
+                'system' => $system,
                 'segment_name' => $segment_name,
                 'nama' => $nama,
                 'url' => $url,
@@ -87,6 +89,7 @@ class DashboardSysMenu extends Controller
     public function edit(Request $request) {
         $id = $request->id;
         $group = $request->group;
+        $system = $request->system_type;
         $nama = $request->nama;
         $url = $request->url;
         $segment_name = $request->segment_name;
@@ -97,6 +100,7 @@ class DashboardSysMenu extends Controller
                 ->where('id','=',$id)
                 ->update([
                     'id_group' => $group,
+                    'system' => $system,
                     'segment_name' => $segment_name,
                     'nama' => $nama,
                     'url' => $url,

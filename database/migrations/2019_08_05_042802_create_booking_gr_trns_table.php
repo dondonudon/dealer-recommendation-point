@@ -13,8 +13,10 @@ class CreateBookingGrTrnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('booking_gr_trns', function (Blueprint $table) {
+        Schema::create('booking_gr_trn', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('no_booking',10);
+            $table->text('keluhan');
             $table->timestamps();
         });
     }

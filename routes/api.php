@@ -1,6 +1,9 @@
 <?php
 
+use App\sysMenuGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +18,23 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/login',function(Request $request) {
+    $username = $request->username;
+    $password = $request->password;
+
+    $user = DB::table('sys_user')
+        ->select('username','password')
+        ->where('username','=',$username)
+        ->first();
+
+    $result = [];
+    if ($password == Crypt::decryptString($user->password)) {
+        $result[]['status'] = 'success';
+    } else {
+        $result[]['status'] = 'username atau password salah';
+    }
+
+    return json_encode($result);
 });

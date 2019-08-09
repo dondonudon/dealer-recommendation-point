@@ -39,6 +39,7 @@ Route::post('system-utility/user-management/menu', 'DashboardSysUser@menu');
 Route::post('system-utility/user-management/add', 'DashboardSysUser@add');
 Route::post('system-utility/user-management/edit', 'DashboardSysUser@edit');
 Route::post('system-utility/user-management/user-permission', 'DashboardSysUser@userPermission');
+Route::post('system-utility/user-management/area-permission', 'DashboardSysUser@areaPermission');
 Route::post('system-utility/user-management/reset', 'DashboardSysUser@reset');
 Route::post('system-utility/user-management/delete', 'DashboardSysUser@delete');
 
@@ -57,3 +58,12 @@ Route::post('master-data/kendaraan/list', 'MasterDataKendaraan@list');
 Route::post('master-data/kendaraan/add', 'MasterDataKendaraan@add');
 Route::post('master-data/kendaraan/edit', 'MasterDataKendaraan@edit');
 Route::post('master-data/kendaraan/delete', 'MasterDataKendaraan@delete');
+
+Route::get('booking-general-repair/monitoring-dan-follow-up','BookingGRMonitoring@index');
+Route::post('booking-general-repair/monitoring-dan-follow-up/list','BookingGRMonitoring@list');
+//Route::post('booking-general-repair/monitoring-dan-follow-up/keluhan','BookingGRMonitoring@keluhan');
+
+Route::get('body-paint-estimation/monitoring-dan-follow-up','BPEstimationMonitoringFu@index');
+Route::post('body-paint-estimation/monitoring-dan-follow-up/list','BPEstimationMonitoringFu@list');
+Route::post('body-paint-estimation/monitoring-dan-follow-up/tambahan','BPEstimationMonitoringFu@tambahan');
+Route::post('body-paint-estimation/monitoring-dan-follow-up/update-fu','BPEstimationMonitoringFu@updateFU');

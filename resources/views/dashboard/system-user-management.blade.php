@@ -3,7 +3,7 @@
 @section('page title','User Management')
 
 @php
-    $sidebar = \App\Http\Controllers\DashboardSysUser::menu()
+    $sidebar = \App\Http\Controllers\DashboardSysUser::menu();
 @endphp
 
 @section('content')
@@ -202,6 +202,18 @@
                         })
                     }
                 });
+                $.ajax({
+                    url: '{{ url('system-utility/user-management/area-permission') }}',
+                    method: 'post',
+                    data: {username: iUsername.val()},
+                    success: function (response) {
+                        console.log(response);
+                        let data = JSON.parse(response);
+                        data.forEach(function (v,i) {
+                            $('#area_permission_'+v.id_menu_group).prop('checked',true);
+                        })
+                    }
+                });
                 cardComponent.removeClass('d-none');
                 $('html, body').animate({
                     scrollTop: cardComponent.offset().top
@@ -322,6 +334,7 @@
                                 }
                             })
                         } else {
+                            console.log(response);
                             Swal.fire(
                                 'Gagal!',
                                 'Username atau Password Salah',

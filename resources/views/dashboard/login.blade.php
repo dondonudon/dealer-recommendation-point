@@ -85,7 +85,7 @@
             method: 'post',
             data: $(this).serialize(),
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response === 'success') {
                     infoBtnSubmit.attr('class','far fa-circle');
                     window.location.href = '{{ url('/') }}';

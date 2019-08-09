@@ -13,8 +13,16 @@ class CreateBookingGrMstsTable extends Migration
      */
     public function up()
     {
-        Schema::create('booking_gr_msts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('booking_gr_mst', function (Blueprint $table) {
+            $table->string('no_booking',10)->primary();
+            $table->string('nama',75);
+            $table->string('no_telp',20);
+            $table->string('no_pol',10);
+            $table->string('model_kendaraan',25);
+            $table->year('tahun_kendaraan');
+            $table->date('tgl_booking');
+            $table->time('jam_booking');
+            $table->string('tipe_service');
             $table->timestamps();
         });
     }

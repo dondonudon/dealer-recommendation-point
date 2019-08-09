@@ -14,6 +14,7 @@
                                 <thead class="bg-dark">
                                     <tr>
                                         <th>Group</th>
+                                        <th>System</th>
                                         <th>Nama</th>
                                         <th>URL</th>
                                         <th>Nama Segment</th>
@@ -52,6 +53,10 @@
                             <div class="card-body">
                                 <input type="hidden" id="inputType" value="new">
                                 <input type="hidden" id="idMenu" name="id">
+                                <div class="form-group">
+                                    <label for="system">SYSTEM</label>
+                                    <select id="system" name="system_type"></select>
+                                </div>
                                 <div class="form-group">
                                     <label for="group">Pilih Group</label>
                                     <select id="group" name="group"></select>
@@ -104,6 +109,9 @@
         const btnClose = $('#btnClose');
 
         const cardComponent = $('#cardComponent');
+        const system = new SlimSelect({
+            select: '#system',
+        });
         const group = new SlimSelect({
             select: '#group'
         });
@@ -144,6 +152,7 @@
             },
             "columns": [
                 { "data": "group" },
+                { "data": "system" },
                 { "data": "nama" },
                 { "data": "url" },
                 { "data": "segment_name" },
@@ -187,6 +196,10 @@
                         )
                     });
                     group.setData(groupData);
+                    system.setData([
+                        {text: 'website', value: 'website'},
+                        {text: 'android', value: 'android'},
+                    ])
                 }
             });
 
@@ -276,6 +289,7 @@
                     method: 'post',
                     data: $(this).serialize(),
                     success: function (response) {
+                        console.log(response);
                         if (response === 'success') {
                             Swal.fire({
                                 type: 'success',

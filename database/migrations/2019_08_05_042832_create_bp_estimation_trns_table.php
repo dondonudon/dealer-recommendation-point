@@ -15,6 +15,11 @@ class CreateBpEstimationTrnsTable extends Migration
     {
         Schema::create('bp_estimation_trns', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('no_invoice',10);
+            $table->string('item',20);
+            $table->integer('qty');
+            $table->decimal('subtotal',12,2);
+
             $table->timestamps();
         });
     }

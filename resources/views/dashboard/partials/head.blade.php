@@ -24,3 +24,6 @@
 
 <!-- Slim Select -->
 <link rel="stylesheet" type="text/css" href="{{ asset('vendor/slimselect/slimselect.min.css') }}">
+
+<!-- APEXcharts -->
+<link rel="stylesheet" type="text/css" href="{{ asset('vendor/apexcharts/dist/apexcharts.css') }}">
