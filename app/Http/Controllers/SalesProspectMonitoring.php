@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
-class BPEstimationPerformanceResult extends Controller
+class SalesProspectMonitoring extends Controller
 {
     private function permission($segment) {
         if (Session::exists('username')) {
@@ -38,36 +38,30 @@ class BPEstimationPerformanceResult extends Controller
                 break;
 
             default:
-                return view('dashboard.bpEstimation-performanceResult');
+                return view('dashboard.sales_prospect-monitoring');
                 break;
         }
     }
 
     public function list(Request $request) {
         $startDate = $request->start_date;
-        $endDate = $request->end_date.' 23:50:00';
+        $endDate = $request->end_date.' 23:50:50';
+        $statusFU = $request->status_fu;
         try {
-            $data[] = DB::table('bp_estimation_mst')
-                ->whereBetween('created_at',[$startDate,$endDate])
-                ->get()->count();
-            $data[] = DB::table('bp_estimation_mst')
-                ->where('status_fu','=','0')
-                ->whereBetween('created_at',[$startDate,$endDate])
-                ->get()->count();
-            $data[] = DB::table('bp_estimation_mst')
-                ->where('status_fu','=','3')
-                ->whereBetween('created_at',[$startDate,$endDate])
-                ->get()->count();
-            $data[] = DB::table('bp_estimation_mst')
-                ->where('status_fu','=','2')
-                ->whereBetween('created_at',[$startDate,$endDate])
-                ->get()->count();
-            $data[] = DB::table('bp_estimation_mst')
-                ->where('status_fu','=','1')
-                ->whereBetween('created_at',[$startDate,$endDate])
-                ->get()->count();
-
-            return json_encode($data);
+            if ($statusFU == 'all') {
+                $menu = DB::table('sales_prospect')
+                    ->select('no_sales', 'nama_customer', 'no_telephone', 'model_kendaraan', 'kabupaten', 'kecamatan', 'alamat', 'pekerjaan', 'kebutuhan','salesman','status_fu','waktu_telp', 'username', 'created_at')
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->get();
+            } else {
+                $menu = DB::table('sales_prospect')
+                    ->select('no_sales', 'nama_customer', 'no_telephone', 'model_kendaraan', 'kabupaten', 'kecamatan', 'alamat', 'pekerjaan', 'kebutuhan','salesman','status_fu','waktu_telp', 'username', 'created_at')
+                    ->where('status_fu', '=', $statusFU)
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->get();
+            }
+            $result['data'] = $menu;
+            return json_encode($result);
         } catch (\Exception $ex) {
             return response()->json($ex);
         }

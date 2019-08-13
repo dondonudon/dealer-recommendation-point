@@ -75,4 +75,16 @@ Route::post('body-paint-estimation/monitoring-dan-follow-up/update-fu','BPEstima
 Route::get('body-paint-estimation/performance-result','BPEstimationPerformanceResult@index');
 Route::post('body-paint-estimation/performance-result/list','BPEstimationPerformanceResult@list');
 
-Route::get('sales-prospect/input-prospect','SalesProspectInputProspect@index');
+Route::get('sales-prospect/monitoring','SalesProspectMonitoring@index');
+Route::post('sales-prospect/monitoring/list','SalesProspectMonitoring@list');
+
+Route::get('sales-prospect/inject-to-salesman','SalesProspectInject@index');
+Route::post('sales-prospect/inject-to-salesman/list','SalesProspectInject@list');
+Route::post('sales-prospect/inject-to-salesman/inject','SalesProspectInject@inject');
+
+Route::get('sales-prospect/input-prospect','SalesProspectInput@index');
+Route::post('sales-prospect/input-prospect/upload','SalesProspectInput@upload');
+
+Route::get('sales-prospect/performance-result','SalesProspectPerformanceResult@index');
+Route::post('sales-prospect/performance-result/list','SalesProspectPerformanceResult@list');
+

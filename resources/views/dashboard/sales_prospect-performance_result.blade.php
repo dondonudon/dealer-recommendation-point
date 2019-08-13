@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','GR Performance Result')
+@section('page title','Performance Result')
 
 @section('content')
     <div class="content">
@@ -38,7 +38,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        const loading = '<i class="fas fa-spinner fa-pulse"></i>';
 
         let iStartDate = moment().startOf('week').format('YYYY-MM-DD');
         let iEndDate = moment().format('YYYY-MM-DD');
@@ -74,13 +73,14 @@
 
         function updateChart() {
             $.ajax({
-                url: '{{ url("booking-general-repair/performance-result/list") }}',
+                url: '{{ url("sales-prospect/performance-result/list") }}',
                 method: 'post',
                 data: {
                     start_date: iStartDate,
                     end_date: iEndDate
                 },
                 success: function (response) {
+                    console.log(response);
                     let data = JSON.parse(response);
                     chart.updateSeries([{
                         data: data

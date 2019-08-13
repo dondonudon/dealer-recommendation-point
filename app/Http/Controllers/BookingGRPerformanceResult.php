@@ -51,6 +51,10 @@ class BookingGRPerformanceResult extends Controller
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data[] = DB::table('booking_gr_mst')
+                ->where('status_fu','=','0')
+                ->whereBetween('created_at',[$startDate,$endDate])
+                ->get()->count();
+            $data[] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','3')
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
