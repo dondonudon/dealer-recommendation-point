@@ -81,6 +81,7 @@
         iRange.on('apply.daterangepicker', function(ev, picker) {
             iStartDate = picker.startDate.format('YYYY-MM-DD');
             iEndDate = picker.endDate.format('YYYY-MM-DD');
+            reloadChart(iStartDate, iEndDate);
         });
 
         let options = {
