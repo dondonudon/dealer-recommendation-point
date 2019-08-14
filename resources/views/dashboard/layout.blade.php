@@ -58,11 +58,15 @@ $segments = request()->segments();
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-        <div class="p-3">
-            <h5>Title</h5>
-            <p>Sidebar content</p>
+        <div class="row">
+            <div class="col-lg m-2">
+                <a class="btn btn-block btn-danger" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-power-off"></i>
+                    Logout
+                </a>
+            </div>
         </div>
+        <hr>
     </aside>
     <!-- /.control-sidebar -->
 
@@ -71,8 +75,49 @@ $segments = request()->segments();
 </div>
 <!-- ./wrapper -->
 
+{{-- MODAL Logout --}}
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Apakah anda ingin keluar?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Silahkan klik tombol logout dibawah untuk mengakhiri sesi ini.</div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-dark" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" type="button" id="btnLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- ./MODAL Logout --}}
+
 <!-- REQUIRED SCRIPTS -->
 @include('dashboard.partials.footer-script')
+<script>
+    const btnLogout = $('#btnLogout');
+    btnLogout.click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "{{ url('overview/session-flush') }}",
+            method: "get",
+            success: function(result) {
+                // console.log(result);
+                if (result === 'success') {
+                    document.location.reload();
+                } else {
+                    Swal.fire({
+                        type: 'info',
+                        title: 'Gagal Logout',
+                    });
+                }
+            }
+        });
+    })
+</script>
 @yield('script')
 </body>
 </html>

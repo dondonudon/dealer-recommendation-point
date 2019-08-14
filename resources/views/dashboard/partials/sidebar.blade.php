@@ -4,7 +4,7 @@ $segment = request()->segments();
 @endphp
 
 <!-- Brand Logo -->
-<a href="index3.html" class="brand-link">
+<a href="{{ url('/') }}" class="brand-link">
     <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">{{ config('app.app_name_small') }}</span>
 </a>
@@ -19,7 +19,11 @@ $segment = request()->segments();
             </div>
         </div>
         <div class="info">
-            <a href="#" class="d-block">{{ \Illuminate\Support\Facades\Session::get('username') }}</a>
+            <a href="{{ url('master-data/profile') }}" class="d-block">
+                <strong class="text-uppercase">
+                    {{ \Illuminate\Support\Facades\Session::get('username') }}
+                </strong>
+            </a>
         </div>
     </div>
 
@@ -27,11 +31,9 @@ $segment = request()->segments();
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ url('/') }}" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
-                    <p>
-                        Home
-                    </p>
+                    <p>Home</p>
                 </a>
             </li>
             <!-- Add icons to the links using the .nav-icon class

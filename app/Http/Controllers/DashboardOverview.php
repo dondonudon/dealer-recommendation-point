@@ -26,6 +26,15 @@ class DashboardOverview extends Controller
         }
     }
 
+    public function sessionFlush() {
+        try {
+            Session::flush();
+        } catch (\Exception $ex) {
+            dd($ex);
+        }
+        return 'success';
+    }
+
     public function list(Request $request) {
         $startDate = $request->start_date;
         $endDate = $request->end_date.' 23:50:00';

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::get('/', 'DashboardOverview@index');
 Route::post('/overview/list', 'DashboardOverview@list');
+Route::get('/overview/session-flush', 'DashboardOverview@sessionFlush');
 
 Route::get('login', 'DashboardLogin@index');
 Route::post('login/submit', 'DashboardLogin@submit');
