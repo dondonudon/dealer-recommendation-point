@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','Monitoring Sales Prospect')
+@section('page title','SALES PROSPECT Monitoring')
 
 @section('content')
     <div class="content">

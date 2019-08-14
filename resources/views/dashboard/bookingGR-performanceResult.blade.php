@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','GR Performance Result')
+@section('page title','BOOKING GR Performance Result')
 
 @section('content')
     <div class="content">

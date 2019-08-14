@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','Monitoring Booking')
+@section('page title','BP ESTIMATION Monitoring & Follow UP')
 
 @section('content')
     <div class="content">
@@ -13,7 +13,7 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="dateRange">Tanggal Booking</label>
+                                        <label for="dateRange">Tanggal Input</label>
                                         <input type="text" class="form-control form-control-sm" id="dateRange">
                                     </div>
                                 </div>

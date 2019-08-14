@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','Inject to Salesman')
+@section('page title','SALES PROSPECT Inject to Salesman')
 
 @section('content')
     <div class="content">
@@ -13,13 +13,13 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="dateRange">Filter Tanggal</label>
+                                        <label for="dateRange">Tanggal Input</label>
                                         <input type="text" class="form-control form-control-sm" id="dateRange">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="dateRange">Inject to</label>
+                                        <label for="dateRange">Inject to Salesman</label>
                                         <select id="salesman"></select>
                                     </div>
                                 </div>

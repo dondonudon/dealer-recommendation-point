@@ -57,7 +57,7 @@
                                 <input type="hidden" id="inputType" value="new">
                                 <div class="form-group">
                                     <label for="group">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username">
+                                    <input type="text" class="form-control" id="username" name="username" maxlength="10">
                                     <small id="emailHelp" class="form-text text-muted">Password untuk user baru sama seperti username</small>
                                 </div>
                                 <hr style="border-width: 10px;">
@@ -147,7 +147,7 @@
                 {
                     data: "isDel",
                     render: function ( data, type, row ) {
-                        if (data === 0) {
+                        if (data == 0) {
                             return 'Active';
                         } else {
                             return 'Disabled';

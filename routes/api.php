@@ -20,17 +20,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login',function(Request $request) {
-    $username = $request->username;
-    $password = $request->password;
-
+Route::get('/login/{user}/{pass}',function($user,$pass) {
     $user = DB::table('sys_user')
         ->select('username','password')
-        ->where('username','=',$username)
+        ->where('username','=',$user)
         ->first();
 
     $result = [];
-    if ($password == Crypt::decryptString($user->password)) {
+    if ($pass == Crypt::decryptString($user->password)) {
         $result[]['status'] = 'success';
     } else {
         $result[]['status'] = 'username atau password salah';

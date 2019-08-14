@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','Inject to Salesman')
+@section('page title','SALES PROSPECT Input Prospect')
 
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/filepond-master/filepond.min.css') }}">
@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="dateRange">Tanggal Booking</label>
+                                        <label for="dateRange">Tanggal Input</label>
                                         <input type="text" class="form-control form-control-sm" id="dateRange">
                                     </div>
                                 </div>

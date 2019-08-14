@@ -3,7 +3,7 @@
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>{{ config('app.name') }}</title>
+<title>{{ config('app.app_name') }}</title>
 
 {{--    FONT AWESOME --}}
 <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.css') }}">
