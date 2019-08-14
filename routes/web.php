@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 Route::get('/', 'DashboardOverview@index');
+Route::post('/overview/list', 'DashboardOverview@list');
 
 Route::get('login', 'DashboardLogin@index');
 Route::post('login/submit', 'DashboardLogin@submit');
