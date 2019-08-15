@@ -104,22 +104,8 @@
                                         <dt class="col-sm-4">Tipe Service</dt>
                                         <dd class="col-sm-8" id="vTipeService"></dd>
 
-                                        <dt class="col-sm-4">Hasil Follow Up</dt>
-                                        <dd class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <select class="custom-select" id="vHasilFU">
-                                                        <option value="0">Belum Follow Up</option>
-                                                        <option value="3">HOT</option>
-                                                        <option value="2">MEDIUM</option>
-                                                        <option value="1">LOW</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <button class="btn btn-success btn-block" type="button" id="btnUpdateFU">Simpan</button>
-                                                </div>
-                                            </div>
-                                        </dd>
+                                        <dt class="col-sm-4">Keluhan</dt>
+                                        <dd class="col-sm-8" id="vKeluhan"></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -131,6 +117,22 @@
                                 </tr>
                                 </thead>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="vHasilFU">
+                                        <option value="0">Belum Follow Up</option>
+                                        <option value="1">BOOKING</option>
+                                        <option value="2">Re-Schedule</option>
+                                        <option value="3" class="bg-red">Cancel</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-success btn-block" type="button" id="btnUpdateFU">Simpan</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -182,6 +184,7 @@
         let vModel = $('#vModel');
         let vTahunKendaraan = $('#vTahunKendaraan');
         let vTipeService = $('#vTipeService');
+        const vKeluhan = $('#vKeluhan');
         const vHasilFU = $('#vHasilFU');
 
         function resetForm() {
@@ -214,15 +217,15 @@
                         let result;
                         switch (data) {
                             case 1:
-                                result = 'LOW';
+                                result = 'Booking';
                                 break;
 
                             case 2:
-                                result = 'MEDIUM';
+                                result = 'Reschedule';
                                 break;
 
                             case 3:
-                                result = 'HIGH';
+                                result = 'Cancel';
                                 break;
 
                             default:
@@ -261,6 +264,8 @@
                 vModel.html(data.model_kendaraan);
                 vTahunKendaraan.html(data.tahun_kendaraan);
                 vTipeService.html(data.tipe_service);
+                vHasilFU.val(data.status_fu);
+                vKeluhan.html(data.keluhan);
             }
         });
 

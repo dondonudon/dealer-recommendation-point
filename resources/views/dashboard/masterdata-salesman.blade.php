@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','Master Data Sales')
+@section('page title','Master Data Salesman')
 
 @section('content')
     <div class="content">
@@ -97,6 +97,7 @@
         });
 
         const tableIndex = $('#tableIndex').DataTable({
+            scrollX: true,
             "ajax": {
                 "method": "POST",
                 "url": "{{ url('/master-data/salesman/list') }}",
@@ -132,6 +133,7 @@
         });
 
         const tableUser = $('#tableUser').DataTable({
+            scrollX: true,
             "ajax": {
                 "method": "POST",
                 "url": "{{ url('/master-data/salesman/user') }}",

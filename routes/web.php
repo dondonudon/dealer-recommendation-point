@@ -61,6 +61,12 @@ Route::post('master-data/kendaraan/add', 'MasterDataKendaraan@add');
 Route::post('master-data/kendaraan/edit', 'MasterDataKendaraan@edit');
 Route::post('master-data/kendaraan/delete', 'MasterDataKendaraan@delete');
 
+Route::get('master-data/konten-gambar', 'MasterDataKontenGambar@index');
+Route::post('master-data/konten-gambar/list', 'MasterDataKontenGambar@list');
+Route::post('master-data/konten-gambar/upload/{info}', 'MasterDataKontenGambar@upload');
+Route::post('master-data/konten-gambar/preview', 'MasterDataKontenGambar@preview');
+Route::post('master-data/konten-gambar/delete', 'MasterDataKontenGambar@delete');
+
 Route::get('booking-general-repair/monitoring-dan-follow-up','BookingGRMonitoring@index');
 Route::post('booking-general-repair/monitoring-dan-follow-up/list','BookingGRMonitoring@list');
 Route::post('booking-general-repair/monitoring-dan-follow-up/keluhan','BookingGRMonitoring@keluhan');

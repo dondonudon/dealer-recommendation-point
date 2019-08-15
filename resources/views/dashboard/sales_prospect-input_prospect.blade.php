@@ -115,6 +115,7 @@
 
         const btnSimpan = $('#btnSimpan');
         const btnUpload = $('#btnUploadFile');
+        const btnClose = $('#btnClose');
 
         const cardComponent = $('#cardComponent');
 
@@ -206,6 +207,13 @@
                 $('html, body').animate({
                     scrollTop: cardComponent.offset().top
                 }, 500);
+            });
+            btnClose.click(function (e) {
+                e.preventDefault();
+                $("html, body").animate({ scrollTop: 0 }, 500, function () {
+                    cardComponent.addClass('d-none');
+                    updateTableIndex();
+                });
             });
 
             FilePond.create( uploadArea );

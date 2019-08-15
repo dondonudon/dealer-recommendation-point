@@ -20,7 +20,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <i class="fas fa-warehouse fa-2x"></i>
+{{--        <i class="fas fa-warehouse fa-2x"></i>--}}
+        <img width="50%" src="{{ asset('img/DRP.png') }}" alt="Company Logo">
     </div>
     <!-- /.login-logo -->
     <div class="card">

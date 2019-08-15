@@ -50,12 +50,10 @@ class BPEstimationMonitoringFu extends Controller
         try {
             if ($statusFU == 'all') {
                 $menu = DB::table('bp_estimation_mst')
-                    ->select('no_estimation','nama','no_telp','no_pol','model_kendaraan','grand_total','username','status_fu','created_at')
                     ->whereBetween('created_at',[$startDate,$endDate])
                     ->get();
             } else {
                 $menu = DB::table('bp_estimation_mst')
-                    ->select('no_estimation','nama','no_telp','no_pol','model_kendaraan','grand_total','username','status_fu','created_at')
                     ->where('status_fu','=',$statusFU)
                     ->whereBetween('created_at',[$startDate,$endDate])
                     ->get();
