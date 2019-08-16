@@ -29,6 +29,12 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="filterSalesman">Filter Salesman</label>
+                                        <select id="filterSalesman"></select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -86,6 +92,15 @@
             iEndDate = picker.endDate.format('YYYY-MM-DD');
         });
         const iStatusFU = $('#statusFollowUp');
+        let salesmanData = [{
+            text: 'Semua salesman',
+            value: 'all',
+        }];
+        const iSalesman = new SlimSelect({
+            select: '#filterSalesman',
+            data: salesmanData
+        });
+
 
         const tableIndex = $('#tableIndex').DataTable({
             scrollX: true,
@@ -104,7 +119,7 @@
                     "data": "status_fu",
                     "render": function ( data, type, row, meta ) {
                         let result;
-                        switch (data) {
+                        switch (parseInt(data)) {
                             case 1:
                                 result = 'LOW';
                                 break;
@@ -142,7 +157,8 @@
                 data: {
                     start_date: iStartDate,
                     end_date: iEndDate,
-                    status_fu: iStatusFU.val()
+                    status_fu: iStatusFU.val(),
+                    salesman: $('#filterSalesman').val(),
                 },
                 success: function(response) {
                     // console.log(response);
@@ -153,8 +169,26 @@
             })
         }
 
-        $(document).ready(function () {
+        function updateFilterSalesman() {
+            $.ajax({
+                url: "{{ url('master-data/salesman/list') }}",
+                method: "post",
+                success: function(response) {
+                    // console.log(response);
+                    let data = JSON.parse(response);
+                    data.data.forEach(function (v,i) {
+                        salesmanData.push({
+                            text: v.username,
+                            value: v.username,
+                        })
+                    });
+                    iSalesman.setData(salesmanData);
+                }
+            })
+        }
 
+        $(document).ready(function () {
+            updateFilterSalesman();
             updateTableIndex();
             $('#dateRange').on('apply.daterangepicker', function(ev, picker) {
                 iStartDate = picker.startDate.format('YYYY-MM-DD');
@@ -166,6 +200,10 @@
                 e.preventDefault();
                 updateTableIndex();
             });
+
+            $('#filterSalesman').change(function () {
+                updateTableIndex();
+            })
 
         });
     </script>

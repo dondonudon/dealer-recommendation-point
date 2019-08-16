@@ -5,7 +5,7 @@ $segment = request()->segments();
 
 <!-- Brand Logo -->
 <a href="{{ url('/') }}" class="brand-link">
-    <img src="{{ asset('img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="{{ asset('img/DRP_.jpg') }}" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">{{ config('app.app_name_small') }}</span>
 </a>
 

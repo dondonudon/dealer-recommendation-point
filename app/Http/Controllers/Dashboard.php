@@ -21,6 +21,7 @@ class Dashboard extends Controller
                 ['sys_permission.username','=',$username],
                 ['sys_menu.system','=','website'],
             ])
+            ->orderBy('sys_menu.ord','asc')
             ->get();
 
         $groupSelected = [];

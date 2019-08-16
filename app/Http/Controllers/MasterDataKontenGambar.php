@@ -87,7 +87,7 @@ class MasterDataKontenGambar extends Controller
             $konten = new msKonten();
             $konten->file_name = $fileName;
             $konten->file_location_laravel = Storage::url($fileName);
-            $konten->file_location = url('/').'/laravel-system/storage/public/'.$fileName;
+            $konten->file_location = url('/').'/laravel-system/storage/app/public/'.$fileName;
             $konten->info = $info;
             $konten->save();
         } catch (\Exception $ex) {
@@ -100,12 +100,12 @@ class MasterDataKontenGambar extends Controller
     public function preview(Request $request) {
         $msKonten = msKonten::all();
         $result = [];
-//        $host = $request->getHttpHost();
+
         foreach ($msKonten as $img) {
             if ($request->getHttpHost() !== 'nasmocobrebesbp.com') {
                 $url = $img->file_location_laravel;
             } else {
-                $url = url(asset('laravel-system/storage/app/public')).'/'.$img->file_location;
+                $url = $img->file_location;
             }
             $result[] = [
                 'src' => $url,

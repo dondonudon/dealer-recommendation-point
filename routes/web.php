@@ -69,7 +69,7 @@ Route::post('master-data/konten-gambar/delete', 'MasterDataKontenGambar@delete')
 
 Route::get('booking-general-repair/monitoring-dan-follow-up','BookingGRMonitoring@index');
 Route::post('booking-general-repair/monitoring-dan-follow-up/list','BookingGRMonitoring@list');
-Route::post('booking-general-repair/monitoring-dan-follow-up/keluhan','BookingGRMonitoring@keluhan');
+Route::post('booking-general-repair/monitoring-dan-follow-up/notes','BookingGRMonitoring@notes');
 Route::post('booking-general-repair/monitoring-dan-follow-up/update-fu','BookingGRMonitoring@updateFU');
 
 Route::get('booking-general-repair/performance-result','BookingGRPerformanceResult@index');
@@ -77,7 +77,7 @@ Route::post('booking-general-repair/performance-result/list','BookingGRPerforman
 
 Route::get('body-paint-estimation/monitoring-dan-follow-up','BPEstimationMonitoringFu@index');
 Route::post('body-paint-estimation/monitoring-dan-follow-up/list','BPEstimationMonitoringFu@list');
-Route::post('body-paint-estimation/monitoring-dan-follow-up/tambahan','BPEstimationMonitoringFu@tambahan');
+Route::post('body-paint-estimation/monitoring-dan-follow-up/trn','BPEstimationMonitoringFu@trn');
 Route::post('body-paint-estimation/monitoring-dan-follow-up/update-fu','BPEstimationMonitoringFu@updateFU');
 
 Route::get('body-paint-estimation/performance-result','BPEstimationPerformanceResult@index');

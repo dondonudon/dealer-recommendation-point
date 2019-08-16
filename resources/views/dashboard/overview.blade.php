@@ -68,12 +68,12 @@
         });
         const loading = '<i class="fas fa-spinner fa-pulse"></i>';
 
-        let iStartDate = moment().startOf('month').format('YYYY-MM-DD');
-        let iEndDate = moment().format('YYYY-MM-DD');
+        let iStartDate = moment().subtract(7,'days').format('YYYY-MM-DD');
+        let iEndDate = moment().add(7,'days').format('YYYY-MM-DD');
         const iRange = $('#dateRange');
         iRange.daterangepicker({
-            startDate: moment().startOf('month').format('DD-MM-YYYY'),
-            endDate: moment().format('DD-MM-YYYY'),
+            startDate: moment().subtract(7,'days').format('DD-MM-YYYY'),
+            endDate: moment().add(7,'days').format('DD-MM-YYYY'),
             locale: {
                 format: 'DD-MM-YYYY'
             }
@@ -84,7 +84,7 @@
             reloadChart(iStartDate, iEndDate);
         });
 
-        let options = {
+        let optSP = {
             chart: {
                 height: 250,
                 type: 'bar',
@@ -95,20 +95,54 @@
                 }
             },
             series: [{
-                data: [30,40,45,50,49]
+                data: [0,0,0,0,0]
             }],
             xaxis: {
-                categories: ['Total Data Estimasi', 'Belum Follow UP', 'FU: HIGH', 'FU: Medium', 'FU: Low'],
+                categories: ['Total Data Prospect', 'Belum Follow UP', 'FU: HIGH', 'FU: Medium', 'FU: Low'],
+            }
+        };
+        let optGR = {
+            chart: {
+                height: 250,
+                type: 'bar',
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            series: [{
+                data: [0,0,0,0,0]
+            }],
+            xaxis: {
+                categories: ['Total Data Booking', 'Belum Follow UP', 'FU: Booking', 'FU: Reschedule', 'FU: Cancel'],
+            }
+        };
+        let optBP = {
+            chart: {
+                height: 250,
+                type: 'bar',
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                }
+            },
+            series: [{
+                data: [0,0,0,0,0]
+            }],
+            xaxis: {
+                categories: ['Total Data Estimasi', 'Belum Follow UP', 'FU: Booking', 'FU: Reschedule', 'FU: Cancel'],
             }
         };
 
-        const spChart = new ApexCharts(document.querySelector("#sp_chart"), options);
+        const spChart = new ApexCharts(document.querySelector("#sp_chart"), optSP);
         spChart.render();
 
-        const grChart = new ApexCharts(document.querySelector("#gr_chart"), options);
+        const grChart = new ApexCharts(document.querySelector("#gr_chart"), optGR);
         grChart.render();
 
-        const bpChart = new ApexCharts(document.querySelector("#bp_chart"), options);
+        const bpChart = new ApexCharts(document.querySelector("#bp_chart"), optBP);
         bpChart.render();
 
         function reloadChart(startDate,endDate) {

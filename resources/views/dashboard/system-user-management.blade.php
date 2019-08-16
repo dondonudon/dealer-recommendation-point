@@ -126,6 +126,7 @@
             iUsername.val('');
             iUsername.prop('readonly',false);
             iCheckbox.prop('checked',false);
+            $('#permission_8').prop('checked',true);
         }
 
         const tableIndex = $('#tableIndex').DataTable({
@@ -332,6 +333,11 @@
                                         tableIndex.ajax.reload();
                                     });
                                 }
+                            })
+                        } else if (response === 'terdaftar') {
+                            Swal.fire({
+                                title: 'Username terdaftar',
+                                type: 'warning',
                             })
                         } else {
                             console.log(response);

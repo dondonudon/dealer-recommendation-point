@@ -23,6 +23,12 @@
 {{-- ApexCharts --}}
 <script type="text/javascript" src="{{ asset('vendor/apexcharts/dist/apexcharts.js') }}"></script>
 
+{{-- ApexCharts --}}
+<script type="text/javascript" src="{{ asset('vendor/chart.js/dist/Chart.js') }}"></script>
+
+{{-- Numeral JS --}}
+<script type="text/javascript" src="{{ asset('vendor/numeral/numeral.js') }}"></script>
+
 <script>
     $.ajaxSetup({
         headers: {

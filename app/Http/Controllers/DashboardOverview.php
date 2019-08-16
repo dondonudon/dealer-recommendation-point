@@ -67,7 +67,7 @@ class DashboardOverview extends Controller
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
-                ->where('status_fu','=','3')
+                ->where('status_fu','=','1')
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
@@ -75,7 +75,7 @@ class DashboardOverview extends Controller
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
-                ->where('status_fu','=','1')
+                ->where('status_fu','=','3')
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
 
@@ -87,7 +87,7 @@ class DashboardOverview extends Controller
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data['bp_estimation'][] = DB::table('bp_estimation_mst')
-                ->where('status_fu','=','3')
+                ->where('status_fu','=','1')
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data['bp_estimation'][] = DB::table('bp_estimation_mst')
@@ -95,7 +95,7 @@ class DashboardOverview extends Controller
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
             $data['bp_estimation'][] = DB::table('bp_estimation_mst')
-                ->where('status_fu','=','1')
+                ->where('status_fu','=','3')
                 ->whereBetween('created_at',[$startDate,$endDate])
                 ->get()->count();
 

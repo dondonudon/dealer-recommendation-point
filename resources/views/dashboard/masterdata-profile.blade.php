@@ -1,6 +1,6 @@
 @extends('dashboard.layout')
 
-@section('page title','System Menu Group')
+@section('page title','MASTER DATA Edit Profil User')
 
 @section('content')
     <div class="content">
@@ -49,16 +49,32 @@
                             @csrf
                             <div class="card-body">
                                 <input type="hidden" name="username" value="{{ \Illuminate\Support\Facades\Session::get('username') }}" readonly>
+
                                 <div class="form-group">
-                                    <label for="group">Nama Lengkap</label>
+                                    <label for="iPassLama">Password Lama</label>
+                                    <input type="text" class="form-control" id="iPassLama" name="password_lama" onkeyup="checkOldPassword()">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iPassBaru">Password Baru</label>
+                                    <input type="text" class="form-control" id="iPassBaru" name="password_baru" onkeyup="checkNewPassword()">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iPassRepeat">Repeat Password Baru</label>
+                                    <input type="text" class="form-control" id="iPassRepeat" name="password" onkeyup="checkNewPassword()">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iNamaLengkap">Nama Lengkap</label>
                                     <input type="text" class="form-control" id="iNamaLengkap" name="nama_lengkap">
                                 </div>
                                 <div class="form-group">
-                                    <label for="group">Alamat e-Mail</label>
+                                    <label for="iEmail">Alamat e-Mail</label>
                                     <input type="text" class="form-control" id="iEmail" name="email">
                                 </div>
                                 <div class="form-group">
-                                    <label for="group">Nomor Telp</label>
+                                    <label for="iNoTelp">Nomor Telp</label>
                                     <input type="text" class="form-control" id="iNoTelp" name="no_telp">
                                 </div>
                             </div>
@@ -101,6 +117,34 @@
         const iNoTelp = $('#iNoTelp');
 
         let namaLengkap, email, noTelp;
+
+        function checkOldPassword() {
+            let oldPass = $('#iPassLama');
+            let newPass = $('#iPassBaru');
+            let repPass = $('#iPassRepeat');
+
+            if (oldPass.val() !== '') {
+                newPass.addClass('is-invalid');
+                repPass.addClass('is-invalid');
+            } else {
+                newPass.removeClass('is-invalid');
+                repPass.removeClass('is-invalid');
+            }
+        }
+
+        function checkNewPassword() {
+            let newPass = $('#iPassBaru');
+            let repPass = $('#iPassRepeat');
+
+            if (newPass.val() !== '') {
+                newPass.removeClass('is-invalid');
+                if (newPass.val() !== repPass.val()) {
+                    repPass.addClass('is-invalid');
+                } else {
+                    repPass.removeClass('is-invalid');
+                }
+            }
+        }
 
         function reloadForm() {
             iNamaLengkap.val(namaLengkap);
@@ -152,32 +196,54 @@
              */
             dataForm.submit(function (e) {
                 e.preventDefault();
-                $.ajax({
-                    url: "{{ url('master-data/profile/edit') }}",
-                    method: 'post',
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        console.log(response);
-                        if (response === 'success') {
-                            Swal.fire({
-                                type: 'success',
-                                title: 'Data Tersimpan',
-                                onClose: function () {
-                                    $("html, body").animate({ scrollTop: 0 }, 500, function () {
-                                        cardComponent.addClass('d-none');
-                                        reloadData();
-                                    });
-                                }
-                            })
-                        } else {
-                            Swal.fire(
-                                'Gagal!',
-                                'Username atau Password Salah',
-                                'warning'
-                            )
-                        }
+                let oldPass = $('#iPassLama');
+                let newPass = $('#iPassBaru');
+                let repPass = $('#iPassRepeat');
+                let status = '';
+
+                if (oldPass.val() !== '') {
+                    if (newPass.val() === '' || repPass.val() === '') {
+                        Swal.fire(
+                            'Gagal!',
+                            'Seluruh input password harus terisi',
+                            'warning'
+                        )
+                    } else {
+                        status = 'lanjut';
                     }
-                })
+                } else {
+                    status = 'lanjut';
+                }
+
+                if (status === 'lanjut') {
+                    $.ajax({
+                        url: "{{ url('master-data/profile/edit') }}",
+                        method: 'post',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            let data = JSON.parse(response);
+                            if (data[0] === 'success') {
+                                Swal.fire({
+                                    type: 'success',
+                                    title: 'Data Tersimpan',
+                                    onClose: function () {
+                                        $("html, body").animate({ scrollTop: 0 }, 500, function () {
+                                            cardComponent.addClass('d-none');
+                                            reloadData();
+                                        });
+                                    }
+                                })
+                            } else {
+                                Swal.fire(
+                                    'Gagal!',
+                                    data[0],
+                                    'error'
+                                )
+                            }
+                        }
+                    })
+                }
             })
         });
     </script>

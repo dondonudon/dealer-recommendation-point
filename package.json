@@ -23,12 +23,14 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
+        "chart.js": "^2.8.0",
         "datatables.net": "^1.10.19",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-fixedcolumns": "^3.2.6",
         "datatables.net-fixedcolumns-bs4": "^3.2.6",
         "daterangepicker": "^3.0.5",
         "moment": "^2.24.0",
+        "numeral": "^2.0.6",
         "slim-select": "^1.23.0",
         "spinkit": "^1.2.5",
         "sweetalert2": "^8.14.0"

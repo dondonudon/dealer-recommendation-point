@@ -3,7 +3,7 @@
 return [
 
     'app_name' => 'Dealer Recommendation Point',
-    'app_name_small' => 'DRM',
+    'app_name_small' => 'DRP',
     'app_client_name' => 'Nasmoco Tegal',
 
     /*

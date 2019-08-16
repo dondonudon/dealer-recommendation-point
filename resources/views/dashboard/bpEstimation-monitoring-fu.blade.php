@@ -23,9 +23,9 @@
                                         <select class="form-control form-control-sm" id="statusFollowUp">
                                             <option value="0">Belum Follow Up</option>
                                             <option value="all">Tampilkan Semua</option>
-                                            <option value="3">HOT</option>
-                                            <option value="2">MEDIUM</option>
-                                            <option value="1">LOW</option>
+                                            <option value="1">BOOK</option>
+                                            <option value="2">RESCHEDULE</option>
+                                            <option value="3">CANCEL</option>
                                         </select>
                                     </div>
                                 </div>
@@ -91,34 +91,34 @@
 
                                         <dt class="col-sm-4">Grand Total</dt>
                                         <dd class="col-sm-8">Rp <span id="vGrandTotal"></span></dd>
-
-                                        <dt class="col-sm-4">Hasil Follow Up</dt>
-                                        <dd class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <select class="custom-select" id="vHasilFU">
-                                                        <option value="0">Belum Follow Up</option>
-                                                        <option value="3">HOT</option>
-                                                        <option value="2">MEDIUM</option>
-                                                        <option value="1">LOW</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <button class="btn btn-success btn-block" type="button" id="btnUpdateFU">Simpan</button>
-                                                </div>
-                                            </div>
-                                        </dd>
                                     </dl>
                                 </div>
                             </div>
                             <table class="table table-sm table-bordered display nowrap" id="tableKeluhan" width="100%">
                                 <thead class="bg-dark">
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Keluhan</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Sub Total</th>
                                 </tr>
                                 </thead>
                             </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-4">
+                                    <select class="custom-select" id="vHasilFU">
+                                        <option value="0">Belum Follow Up</option>
+                                        <option value="1">BOOKING</option>
+                                        <option value="2">Re-Schedule</option>
+                                        <option value="3" class="bg-red">Cancel</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-success btn-block" type="button" id="btnUpdateFU">Simpan</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -138,11 +138,11 @@
         });
         const loading = '<i class="fas fa-spinner fa-pulse"></i>';
 
-        let iStartDate = moment().startOf('week').format('YYYY-MM-DD');
+        let iStartDate = moment().subtract(7,'days').format('YYYY-MM-DD');
         let iEndDate = moment().format('YYYY-MM-DD');
         const iRange = $('#dateRange');
         iRange.daterangepicker({
-            startDate: moment().startOf('week').format('DD-MM-YYYY'),
+            startDate: moment().subtract(7,'days').format('DD-MM-YYYY'),
             endDate: moment().format('DD-MM-YYYY'),
             locale: {
                 format: 'DD-MM-YYYY'
@@ -191,17 +191,17 @@
                     "data": "status_fu",
                     "render": function ( data, type, row, meta ) {
                         let result;
-                        switch (data) {
+                        switch (parseInt(data)) {
                             case 1:
-                                result = 'LOW';
+                                result = 'BOOK';
                                 break;
 
                             case 2:
-                                result = 'MEDIUM';
+                                result = 'RESCHEDULE';
                                 break;
 
                             case 3:
-                                result = 'HIGH';
+                                result = 'CANCEL';
                                 break;
 
                             default:
@@ -247,8 +247,20 @@
             searching: false,
             bInfo: false,
             "columnDefs": [
-                { "width": "6%", "targets": 0}
-            ]
+                { "width": "60%", "targets": 0},
+                { "width": "10%", "targets": 1},
+                { "width": "30%", "targets": 2, "className": 'text-right'},
+            ],
+            "columns": [
+                { "data": "item" },
+                { "data": "qty" },
+                {
+                    "data": "subtotal",
+                    render: function(data, type, row, meta) {
+                        return numeral(data).format('0,0.00');
+                    }
+                },
+            ],
         });
 
         function updateTableIndex() {
@@ -283,18 +295,15 @@
             btnDetail.click(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "{{ url('body-paint-estimation/monitoring-dan-follow-up/tambahan') }}",
+                    url: "{{ url('body-paint-estimation/monitoring-dan-follow-up/trn') }}",
                     method: 'post',
-                    data: {no_estimasi: noEstimasi},
+                    data: {no_estimation: noEstimasi},
                     success: function (response) {
-                        // console.log(response);
+                        console.log(response);
                         let data = JSON.parse(response);
                         tableKeluhan.clear().draw();
-                        let i = 0;
-                        data.data.forEach(function (v,i) {
-                            i++;
-                            tableKeluhan.row.add([i, v.keluhan]).draw();
-                        });
+                        tableKeluhan.rows.add(data.data);
+                        tableKeluhan.draw();
                         cardComponent.removeClass('d-none');
                         $('html, body').animate({
                             scrollTop: cardComponent.offset().top
@@ -306,6 +315,7 @@
                 e.preventDefault();
                 $("html, body").animate({ scrollTop: 0 }, 500, function () {
                     resetForm();
+                    updateTableIndex();
                     cardComponent.addClass('d-none');
                     btnDetail.attr('disabled','true');
                 });
@@ -323,7 +333,7 @@
                     data: {hasil_fu: vHasilFU.val(), no_estimasi: noEstimasi},
                     success: function (response) {
                         if (response === 'success') {
-                            tableIndex.ajax.reload();
+                            updateTableIndex();
                             btnUpdateFU.html(txtDef);
                             btnUpdateFU.removeAttr('disabled');
                             Swal.fire({

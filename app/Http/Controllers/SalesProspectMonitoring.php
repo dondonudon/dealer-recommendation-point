@@ -47,16 +47,26 @@ class SalesProspectMonitoring extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date.' 23:50:50';
         $statusFU = $request->status_fu;
+        $salesman = $request->salesman;
         try {
-            if ($statusFU == 'all') {
+            if ($statusFU == 'all' && $salesman == 'all') {
                 $menu = DB::table('sales_prospect')
-                    ->select('no_sales', 'nama_customer', 'no_telephone', 'model_kendaraan', 'kabupaten', 'kecamatan', 'alamat', 'pekerjaan', 'kebutuhan','salesman','status_fu','waktu_telp', 'username', 'created_at')
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->get();
+            } elseif ($statusFU == 'all' && $salesman !== 'all') {
+                $menu = DB::table('sales_prospect')
+                    ->where('salesman', '=', $salesman)
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->get();
+            } elseif ($statusFU !== 'all' && $salesman == 'all') {
+                $menu = DB::table('sales_prospect')
+                    ->where('status_fu', '=', $statusFU)
                     ->whereBetween('created_at', [$startDate, $endDate])
                     ->get();
             } else {
                 $menu = DB::table('sales_prospect')
-                    ->select('no_sales', 'nama_customer', 'no_telephone', 'model_kendaraan', 'kabupaten', 'kecamatan', 'alamat', 'pekerjaan', 'kebutuhan','salesman','status_fu','waktu_telp', 'username', 'created_at')
                     ->where('status_fu', '=', $statusFU)
+                    ->where('salesman', '=', $salesman)
                     ->whereBetween('created_at', [$startDate, $endDate])
                     ->get();
             }

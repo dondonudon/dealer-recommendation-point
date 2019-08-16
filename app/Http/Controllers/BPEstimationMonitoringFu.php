@@ -82,12 +82,11 @@ class BPEstimationMonitoringFu extends Controller
         }
     }
 
-    public function tambahan(Request $request) {
+    public function trn(Request $request) {
         $noEstimation = $request->no_estimation;
 
         try {
             $items = DB::table('bp_estimation_trns')
-                ->select('item')
                 ->where('no_estimation','=',$noEstimation)
                 ->get();
             $result['data'] = $items;

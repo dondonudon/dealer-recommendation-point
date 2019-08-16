@@ -67,18 +67,17 @@ class BookingGRMonitoring extends Controller
         }
     }
 
-    public function keluhan(Request $request) {
+    public function notes(Request $request) {
         $noBooking = $request->no_booking;
 
         try {
-            $keluhan = DB::table('booking_gr_trn')
-                ->select('keluhan')
+            $notes = DB::table('booking_gr_trn')
                 ->where('no_booking','=',$noBooking)
                 ->get();
         } catch (\Exception $ex) {
             dd('Exception Block',$ex);
         }
-        $result['data'] = $keluhan;
+        $result['data'] = $notes;
 
         return json_encode($result);
     }

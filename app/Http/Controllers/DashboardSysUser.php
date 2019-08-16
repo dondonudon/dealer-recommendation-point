@@ -92,30 +92,36 @@ class DashboardSysUser extends Controller
         $permission = $request->menu_permission;
 
         try {
-            sysUser::create([
-                'username' => $username,
-                'password' => $password,
-            ]);
-            foreach ($permission as $p) {
-                sysPermission::create([
+            if (DB::table('sys_user')->where('username','=',$username)->doesntExist()) {
+                sysUser::create([
                     'username' => $username,
-                    'id_menu' => $p
+                    'password' => $password,
                 ]);
-            }
-            if (isset($request->area_permission)) {
-                $areaPermission = $request->area_permission;
-                foreach ($areaPermission as $area) {
-                    sysAreaPermission::create([
+                foreach ($permission as $p) {
+                    sysPermission::create([
                         'username' => $username,
-                        'id_menu_group' => $area,
+                        'id_menu' => $p
                     ]);
                 }
+                if (isset($request->area_permission)) {
+                    $areaPermission = $request->area_permission;
+                    foreach ($areaPermission as $area) {
+                        sysAreaPermission::create([
+                            'username' => $username,
+                            'id_menu_group' => $area,
+                        ]);
+                    }
+                }
+                $result = 'success';
+            } else {
+                $result = 'terdaftar';
             }
+
         } catch (\Exception $ex) {
             dd('Exception Block',$ex);
         }
 
-        return 'success';
+        return $result;
     }
 
     public function userPermission(Request $request) {

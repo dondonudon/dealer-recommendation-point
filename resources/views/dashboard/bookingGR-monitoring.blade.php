@@ -23,9 +23,9 @@
                                         <select class="form-control form-control-sm" id="statusFollowUp">
                                             <option value="0">Belum Follow Up</option>
                                             <option value="all">Tampilkan Semua</option>
-                                            <option value="3">HOT</option>
-                                            <option value="2">MEDIUM</option>
-                                            <option value="1">LOW</option>
+                                            <option value="1">BOOK</option>
+                                            <option value="2">RESCHEDULE</option>
+                                            <option value="3">CANCEL</option>
                                         </select>
                                     </div>
                                 </div>
@@ -109,26 +109,35 @@
                                     </dl>
                                 </div>
                             </div>
-                            <table class="table table-sm table-bordered display nowrap" id="tableKeluhan" width="100%">
+                            <table class="table table-sm table-bordered display nowrap" id="tableNotes" width="100%">
                                 <thead class="bg-dark">
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Keluhan</th>
+                                    <th>Waktu Input</th>
+                                    <th>Status FU</th>
+                                    <th>Catatan</th>
                                 </tr>
                                 </thead>
                             </table>
                         </div>
                         <div class="card-footer">
                             <div class="row">
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-4">
-                                    <select class="custom-select" id="vHasilFU">
-                                        <option value="0">Belum Follow Up</option>
-                                        <option value="1">BOOKING</option>
-                                        <option value="2">Re-Schedule</option>
-                                        <option value="3" class="bg-red">Cancel</option>
-                                    </select>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="inputCatatan">Input Catatan</label>
+                                        <input type="text" class="form-control" id="inputCatatan" placeholder="Catatan">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="vHasilFU">Hasil Follow UP</label>
+                                        <select class="custom-select" id="vHasilFU">
+                                            <option value="0">Belum Follow Up</option>
+                                            <option value="1">BOOKING</option>
+                                            <option value="2">Re-Schedule</option>
+                                            <option value="3" class="bg-red">Cancel</option>
+                                        </select>
+                                    </div>
                                 </div>
+                                <div class="col-lg-4"></div>
                                 <div class="col-lg-2">
                                     <button class="btn btn-success btn-block" type="button" id="btnUpdateFU">Simpan</button>
                                 </div>
@@ -152,12 +161,12 @@
         });
         const loading = '<i class="fas fa-spinner fa-pulse"></i>';
 
-        let iStartDate = moment().startOf('week').format('YYYY-MM-DD');
-        let iEndDate = moment().format('YYYY-MM-DD');
+        let iStartDate = moment().format('YYYY-MM-DD');
+        let iEndDate = moment().add(7,'days').format('YYYY-MM-DD');
         const iRange = $('#dateRange');
         iRange.daterangepicker({
-            startDate: moment().startOf('week').format('DD-MM-YYYY'),
-            endDate: moment().format('DD-MM-YYYY'),
+            startDate: moment().format('DD-MM-YYYY'),
+            endDate: moment().add(7,'days').format('DD-MM-YYYY'),
             locale: {
                 format: 'DD-MM-YYYY'
             }
@@ -215,7 +224,7 @@
                     "data": "status_fu",
                     "render": function ( data, type, row, meta ) {
                         let result;
-                        switch (data) {
+                        switch (parseInt(data)) {
                             case 1:
                                 result = 'Booking';
                                 break;
@@ -269,14 +278,44 @@
             }
         });
 
-        let tableKeluhan = $('#tableKeluhan').DataTable({
+        let tableNotes = $('#tableNotes').DataTable({
             autoWidth: false,
             paging: false,
             searching: false,
             bInfo: false,
             "columnDefs": [
-                { "width": "6%", "targets": 0}
-            ]
+                { "width": "20%", "targets": 0},
+                { "width": "30%", "targets": 1},
+                { "width": "50%", "targets": 2},
+            ],
+            "columns": [
+                { "data": "created_at" },
+                {
+                    "data": "status_fu",
+                    render: function(data, type, row, meta) {
+                        let result;
+                        switch (parseInt(data)) {
+                            case 0:
+                                result = 'Belum Follow UP';
+                                break;
+
+                            case 1:
+                                result = 'Booking';
+                                break;
+
+                            case 2:
+                                result = 'Reschedule';
+                                break;
+
+                            case 3:
+                                result = 'Cancel';
+                                break;
+                        }
+                        return result;
+                    }
+                },
+                { "data": "note" },
+            ],
         });
 
         function updateTableIndex() {
@@ -312,17 +351,17 @@
             btnDetail.click(function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "{{ url('booking-general-repair/monitoring-dan-follow-up/keluhan') }}",
+                    url: "{{ url('booking-general-repair/monitoring-dan-follow-up/notes') }}",
                     method: 'post',
                     data: {no_booking: noBooking},
                     success: function (response) {
                         // console.log(response);
                         let data = JSON.parse(response);
-                        tableKeluhan.clear().draw();
+                        tableNotes.clear().draw();
                         let i = 0;
                         data.data.forEach(function (v,i) {
                             i++;
-                            tableKeluhan.row.add([i, v.keluhan]).draw();
+                            tableNotes.row.add([i, v.keluhan]).draw();
                         });
                         cardComponent.removeClass('d-none');
                         $('html, body').animate({
@@ -335,6 +374,7 @@
                 e.preventDefault();
                 $("html, body").animate({ scrollTop: 0 }, 500, function () {
                     resetForm();
+                    updateTableIndex();
                     cardComponent.addClass('d-none');
                     btnDetail.attr('disabled','true');
                 });

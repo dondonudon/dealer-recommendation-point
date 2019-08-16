@@ -65,7 +65,7 @@
                 data: [0,0,0,0,0]
             }],
             xaxis: {
-                categories: ['Total Data Estimasi', 'Belum Follow UP', 'FU: HIGH', 'FU: Medium', 'FU: Low'],
+                categories: ['Total Data Estimasi', 'Belum Follow UP', 'FU: BOOK', 'FU: RESCHEDULE', 'FU: CANCEL'],
             }
         };
 

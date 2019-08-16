@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\sysUserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -62,6 +63,20 @@ class MasterDataProfile extends Controller
         $namaLengkap = $request->nama_lengkap;
         $email = $request->email;
         $noTelp = $request->no_telp;
+        $result = [];
+
+        if ($request->password_lama !== null) {
+            $passlama = DB::table('sys_user')->where('username','=',$username)->first();
+            if (Crypt::decryptString($passlama->password) == $request->password_lama) {
+                DB::table('sys_user')
+                    ->where('username','=',$username)
+                    ->update([
+                        'password' => Crypt::encryptString($request->password)
+                    ]);
+            } else {
+                $result[] = 'password lama salah';
+            }
+        }
 
         try {
             $check = DB::table('sys_user_profile')
@@ -82,9 +97,10 @@ class MasterDataProfile extends Controller
 
                 $profile->save();
             }
+            $result[] = 'success';
         } catch (\Exception $ex) {
             dd('Exception Block',$ex);
         }
-        return 'success';
+        return json_encode($result);
     }
 }
