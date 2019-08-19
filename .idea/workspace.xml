@@ -2,43 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="deadf7e9-81dd-451a-8d25-c13127b6b771" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/LICENSE.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/bower.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/composer.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/dist/Chart.bundle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/dist/Chart.bundle.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/dist/Chart.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/dist/Chart.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/dist/Chart.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/dist/Chart.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/vendor/chart.js/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BPEstimationMonitoringFu.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BPEstimationMonitoringFu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BPEstimationPerformanceResult.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BPEstimationPerformanceResult.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingGRMonitoring.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingGRMonitoring.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingGRPerformanceResult.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingGRPerformanceResult.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DashboardOverview.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DashboardOverview.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DashboardSysUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DashboardSysUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MasterDataKontenGambar.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MasterDataKontenGambar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MasterDataProfile.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MasterDataProfile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesProspectMonitoring.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesProspectMonitoring.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/bookingGR-monitoring.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/bookingGR-monitoring.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/bookingGR-performanceResult.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/bookingGR-performanceResult.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/bpEstimation-monitoring-fu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/bpEstimation-monitoring-fu.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/bpEstimation-performanceResult.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/bpEstimation-performanceResult.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/masterdata-profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/masterdata-profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/overview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/overview.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/partials/footer-script.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/partials/footer-script.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/sales_prospect-monitoring.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/sales_prospect-monitoring.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/system-user-management.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/system-user-management.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -291,7 +255,7 @@
       <workItem from="1565746952031" duration="22650000" />
       <workItem from="1565832695444" duration="22345000" />
       <workItem from="1565868008796" duration="2152000" />
-      <workItem from="1565919618920" duration="15167000" />
+      <workItem from="1565919618920" duration="15604000" />
     </task>
     <servers />
   </component>
