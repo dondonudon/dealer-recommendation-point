@@ -72,7 +72,7 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <button class="btn btn-block btn-outline-secondary">
+                                    <button class="btn btn-block btn-outline-secondary" id="btnSample">
                                         <i class="fas fa-download"></i> Download Sample
                                     </button>
                                 </div>
@@ -116,6 +116,7 @@
         const btnSimpan = $('#btnSimpan');
         const btnUpload = $('#btnUploadFile');
         const btnClose = $('#btnClose');
+        const btnSample = $('#btnSample');
 
         const cardComponent = $('#cardComponent');
 
@@ -214,6 +215,10 @@
                     cardComponent.addClass('d-none');
                     updateTableIndex();
                 });
+            });
+            btnSample.click(function (e) {
+                e.preventDefault();
+                window.open('{{ url('sales-prospect/input-prospect/sample') }}');
             });
 
             FilePond.create( uploadArea );

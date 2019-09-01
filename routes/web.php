@@ -92,6 +92,9 @@ Route::post('sales-prospect/inject-to-salesman/inject','SalesProspectInject@inje
 
 Route::get('sales-prospect/input-prospect','SalesProspectInput@index');
 Route::post('sales-prospect/input-prospect/upload','SalesProspectInput@upload');
+Route::get('sales-prospect/input-prospect/sample',function () {
+    return \Illuminate\Support\Facades\Storage::download('public/sample-upload_prospect.xlsx');
+});
 
 Route::get('sales-prospect/performance-result','SalesProspectPerformanceResult@index');
 Route::post('sales-prospect/performance-result/list','SalesProspectPerformanceResult@list');

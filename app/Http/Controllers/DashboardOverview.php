@@ -60,23 +60,23 @@ class DashboardOverview extends Controller
                 ->get()->count();
 
             $data['booking_gr'][] = DB::table('booking_gr_mst')
-                ->whereBetween('created_at',[$startDate,$endDate])
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','0')
-                ->whereBetween('created_at',[$startDate,$endDate])
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','1')
-                ->whereBetween('created_at',[$startDate,$endDate])
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','2')
-                ->whereBetween('created_at',[$startDate,$endDate])
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','3')
-                ->whereBetween('created_at',[$startDate,$endDate])
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
 
             $data['bp_estimation'][] = DB::table('bp_estimation_mst')

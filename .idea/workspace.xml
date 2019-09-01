@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="deadf7e9-81dd-451a-8d25-c13127b6b771" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/sales_prospect-input_prospect.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/sales_prospect-input_prospect.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -256,6 +258,8 @@
       <workItem from="1565832695444" duration="22345000" />
       <workItem from="1565868008796" duration="2152000" />
       <workItem from="1565919618920" duration="15604000" />
+      <workItem from="1566197024364" duration="780000" />
+      <workItem from="1566199445765" duration="769000" />
     </task>
     <servers />
   </component>
