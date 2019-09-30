@@ -40,7 +40,7 @@ class DashboardLogin extends Controller
             } else {
                 $result = 'not available';
             }
-        } catch (DecryptException $ex) {
+        } catch (\Exception $ex) {
             dd('Exception Block', $ex);
         }
 

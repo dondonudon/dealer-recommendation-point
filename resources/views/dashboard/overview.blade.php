@@ -6,6 +6,19 @@
     <div class="content">
         <div class="container-fluid">
 
+            @if(config('app.status_update') !== '')
+                <div class="row">
+                    <div class="col-lg">
+                        <div class="card bg-warning">
+                            <div class="card-body">
+                                <h5 class="text-center">{{ config('app.status_update') }}</h5>
+                                <small class="text-center">Transaksi dapat dilakukan lagi saat pemberitahuan ini menghilang.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
@@ -112,10 +125,10 @@
                 }
             },
             series: [{
-                data: [0,0,0,0,0]
+                data: [0,0,0,0,0,0,0,0,0,0]
             }],
             xaxis: {
-                categories: ['Total Data Booking', 'Belum Follow UP', 'FU: Booking', 'FU: Reschedule', 'FU: Cancel'],
+                categories: ['Total Data Booking', 'Belum Follow UP', 'Book: Datang', 'Book: Tdk Datang', 'FU: Booking', 'FU: Reschedule', 'FU: Cancel', 'Terhubung'],
             }
         };
         let optBP = {

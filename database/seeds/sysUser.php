@@ -12,9 +12,9 @@ class sysUser extends Seeder
      */
     public function run()
     {
-        \App\sysUser::create([
-            'username' => 'dev',
-            'password' => Crypt::encryptString('dev')
-        ]);
+        \App\sysUser::updateOrCreate(
+            ['username' => 'dev'],
+            ['password' => Crypt::encryptString('dev')]
+        );
     }
 }

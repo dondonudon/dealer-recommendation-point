@@ -35,6 +35,12 @@
                                         <select id="filterSalesman"></select>
                                     </div>
                                 </div>
+                                <div class="col-lg-1"></div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-block btn-outline-primary" id="btnExport">
+                                        <i class="fas fa-file-excel mr-3"></i> EXPORT Excel
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -66,6 +72,7 @@
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
+    <iframe id="downloadFile" style="display: none;"></iframe>
 @endsection
 
 @section('script')
@@ -100,6 +107,9 @@
             select: '#filterSalesman',
             data: salesmanData
         });
+
+        const downloadFile = document.getElementById('downloadFile');
+        const btnExport = document.getElementById('btnExport');
 
 
         const tableIndex = $('#tableIndex').DataTable({
@@ -203,7 +213,12 @@
 
             $('#filterSalesman').change(function () {
                 updateTableIndex();
-            })
+            });
+
+            btnExport.addEventListener('click',function (e) {
+                e.preventDefault();
+                downloadFile.src = '{{ url('sales-prospect/monitoring/export') }}/'+iStartDate+'/'+iEndDate+'/'+iStatusFU.val()+'/'+$('#filterSalesman').val();
+            });
 
         });
     </script>

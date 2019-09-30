@@ -12,11 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            sysMenu::class,
-            sysMenuGroup::class,
+//            sysMenu::class,
+//            sysMenuGroup::class,
             sysUser::class,
-            sysUserProfile::class,
-            sysPermissionSeeder::class,
+//            sysUserProfile::class,
+//            sysPermissionSeeder::class,
         ]);
     }
 }

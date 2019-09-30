@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 Route::get('/', 'DashboardOverview@index');
+
+Route::get('storage/{file}',function ($file) {
+    return response()->file(storage_path('app/public/'.$file));
+});
+
 Route::post('/overview/list', 'DashboardOverview@list');
 Route::get('/overview/session-flush', 'DashboardOverview@sessionFlush');
 
@@ -71,9 +76,18 @@ Route::get('booking-general-repair/monitoring-dan-follow-up','BookingGRMonitorin
 Route::post('booking-general-repair/monitoring-dan-follow-up/list','BookingGRMonitoring@list');
 Route::post('booking-general-repair/monitoring-dan-follow-up/notes','BookingGRMonitoring@notes');
 Route::post('booking-general-repair/monitoring-dan-follow-up/update-fu','BookingGRMonitoring@updateFU');
+Route::post('booking-general-repair/monitoring-dan-follow-up/update-datang','BookingGRMonitoring@updateDatang');
+Route::get('booking-general-repair/monitoring-dan-follow-up/export/{start}/{end}/{status}','BookingGRMonitoring@export');
+
+Route::get('booking-general-repair/input-booking','BookingGRInput@index');
+Route::post('booking-general-repair/input-booking/upload','BookingGRInput@upload');
+Route::get('booking-general-repair/input-booking/download-sample','BookingGRInput@download');
 
 Route::get('booking-general-repair/performance-result','BookingGRPerformanceResult@index');
 Route::post('booking-general-repair/performance-result/list','BookingGRPerformanceResult@list');
+
+Route::get('booking-general-repair/monitoring-booking','BookingGRMonitorBooking@index');
+Route::post('booking-general-repair/monitoring-booking/list','BookingGRMonitorBooking@list');
 
 Route::get('body-paint-estimation/monitoring-dan-follow-up','BPEstimationMonitoringFu@index');
 Route::post('body-paint-estimation/monitoring-dan-follow-up/list','BPEstimationMonitoringFu@list');
@@ -85,6 +99,7 @@ Route::post('body-paint-estimation/performance-result/list','BPEstimationPerform
 
 Route::get('sales-prospect/monitoring','SalesProspectMonitoring@index');
 Route::post('sales-prospect/monitoring/list','SalesProspectMonitoring@list');
+Route::get('sales-prospect/monitoring/export/{startDate}/{endDate}/{statusFU}/{salesman}','SalesProspectMonitoring@export');
 
 Route::get('sales-prospect/inject-to-salesman','SalesProspectInject@index');
 Route::post('sales-prospect/inject-to-salesman/list','SalesProspectInject@list');

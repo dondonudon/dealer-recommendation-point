@@ -67,6 +67,14 @@ class DashboardOverview extends Controller
                 ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
+                ->where('isDatang','=','1')
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
+                ->get()->count();
+            $data['booking_gr'][] = DB::table('booking_gr_mst')
+                ->where('isDatang','=','0')
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
+                ->get()->count();
+            $data['booking_gr'][] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','1')
                 ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
@@ -76,6 +84,10 @@ class DashboardOverview extends Controller
                 ->get()->count();
             $data['booking_gr'][] = DB::table('booking_gr_mst')
                 ->where('status_fu','=','3')
+                ->whereBetween('tgl_booking',[$startDate,$endDate])
+                ->get()->count();
+            $data['booking_gr'][] = DB::table('booking_gr_mst')
+                ->where('status_fu','<>','0')
                 ->whereBetween('tgl_booking',[$startDate,$endDate])
                 ->get()->count();
 

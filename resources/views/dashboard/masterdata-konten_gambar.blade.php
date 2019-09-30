@@ -21,6 +21,7 @@
                                 <tr>
                                     <th>Nama File</th>
                                     <th>File Location</th>
+                                    <th>Keterangan</th>
                                     <th>Info</th>
                                 </tr>
                                 </thead>
@@ -60,6 +61,10 @@
                                     <option value="0">Price List</option>
                                     <option value="1">Konten</option>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <input type="text" class="form-control" name="keterangan" id="keterangan">
                             </div>
                             <div class="row">
                                 <div class="col-lg">
@@ -173,6 +178,7 @@
             "columns": [
                 { "data": "file_name" },
                 { "data": "file_location_laravel" },
+                { "data": "keterangan" },
                 { "data": "info" },
             ],
         });
@@ -330,6 +336,7 @@
                     process: (fieldName, file, metadata, load, error, progress, abort) => {
                         const formData = new FormData();
                         formData.append(fieldName, file, file.name);
+                        formData.append('keterangan', $('#keterangan').val());
 
                         const request = new XMLHttpRequest();
                         request.open('POST','{{ url('master-data/konten-gambar/upload') }}/'+infoGambar);

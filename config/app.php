@@ -5,6 +5,7 @@ return [
     'app_name' => 'Dealer Recommendation Point',
     'app_name_small' => 'DRP',
     'app_client_name' => 'Nasmoco Tegal',
+    'status_update' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +72,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------

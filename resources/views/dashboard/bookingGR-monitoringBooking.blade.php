@@ -19,21 +19,14 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        <label for="statusFollowUp">Status Follow UP</label>
+                                        <label for="statusFollowUp">Status Kehadiran</label>
                                         <select class="form-control form-control-sm" id="statusFollowUp">
-                                            <option value="0">Belum Follow Up</option>
+                                            <option value="0">Belum Booking</option>
                                             <option value="all">Tampilkan Semua</option>
-                                            <option value="1">BOOK</option>
-                                            <option value="2">RESCHEDULE</option>
-                                            <option value="3">CANCEL</option>
+                                            <option value="1">Hadir</option>
+                                            <option value="2">Tidak Hadir</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-lg-4"></div>
-                                <div class="col-lg-2">
-                                    <button class="btn btn-block btn-outline-primary" id="btnExport">
-                                        <i class="fas fa-file-excel mr-3"></i> EXPORT Excel
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -41,6 +34,7 @@
                             <table class="table table-sm table-bordered display nowrap" id="tableIndex" width="100%">
                                 <thead class="bg-dark">
                                 <tr>
+                                    <th>Status Kehadiran</th>
                                     <th>No Booking</th>
                                     <th>Nama</th>
                                     <th>No Telp</th>
@@ -50,16 +44,14 @@
                                     <th>Tgl Booking</th>
                                     <th>Jam Booking</th>
                                     <th>Tipe Service</th>
-                                    <th>Target User FU</th>
                                     <th>Status FU</th>
-                                    <th>Status Kehadiran</th>
                                     <th>User Input</th>
                                     <th>Tanggal Input</th>
                                 </tr>
                                 </thead>
                             </table>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer d-none">
                             <div class="row">
                                 <div class="col-lg-10"></div>
                                 <div class="col-lg-2 mt-2 mt-sm-0">
@@ -111,9 +103,6 @@
 
                                         <dt class="col-sm-4">Tipe Service</dt>
                                         <dd class="col-sm-8" id="vTipeService"></dd>
-
-                                        <dt class="col-sm-4">Target User FU</dt>
-                                        <dd class="col-sm-8" id="vTrgtUserFU"></dd>
                                     </dl>
                                 </div>
                             </div>
@@ -175,7 +164,6 @@
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    <iframe id="downloadFile" style="display: none;"></iframe>
 @endsection
 
 @section('script')
@@ -217,11 +205,9 @@
 
         const btnDetail = $('#btnDetail');
         const btnClose = $('#btnClose');
-        const btnExport = $('#btnExport');
         const btnUpdateFU = $('#btnUpdateFU');
         const btnCustDatang = $('#btnCustomerDatang');
 
-        const DownloadFile = document.getElementById('downloadFile');
         const cardComponent = $('#cardComponent');
         let vNoBooking = $('#vNoBooking');
         let vNama = $('#vNama');
@@ -234,7 +220,6 @@
         let vTipeService = $('#vTipeService');
         const vHasilFU = $('#vHasilFU');
         const vInputCatatan = $('#inputCatatan');
-        const vTrgtUserFU = $('#vTrgtUserFU');
 
         function resetForm() {
             vNoBooking.html('');
@@ -252,6 +237,26 @@
         let tableIndex = $('#tableIndex').DataTable({
             scrollX: true,
             "columns": [
+                {
+                    "data": "isDatang",
+                    "render": function ( data, type, row, meta ) {
+                        let result;
+                        switch (parseInt(data)) {
+                            case 1:
+                                result = 'Hadir';
+                                break;
+
+                            case 2:
+                                result = 'Tidak Hadir';
+                                break;
+
+                            default:
+                                result = 'Belum Booking';
+                                break;
+                        }
+                        return result;
+                    }
+                },
                 { "data": "no_booking" },
                 { "data": "nama" },
                 { "data": "no_telp" },
@@ -261,7 +266,6 @@
                 { "data": "tgl_booking" },
                 { "data": "jam_booking" },
                 { "data": "tipe_service" },
-                { "data": "user_fu" },
                 {
                     "data": "status_fu",
                     "render": function ( data, type, row, meta ) {
@@ -281,26 +285,6 @@
 
                             default:
                                 result = 'Belum Follow UP';
-                                break;
-                        }
-                        return result;
-                    }
-                },
-                {
-                    "data": "isDatang",
-                    "render": function ( data, type, row, meta ) {
-                        let result;
-                        switch (parseInt(data)) {
-                            case 1:
-                                result = 'Datang';
-                                break;
-
-                            case 2:
-                                result = 'Tidak Datang';
-                                break;
-
-                            default:
-                                result = 'Belum Booking';
                                 break;
                         }
                         return result;
@@ -334,7 +318,6 @@
                 vNoPol.html(data.no_pol);
                 vModel.html(data.model_kendaraan);
                 vTahunKendaraan.html(data.tahun_kendaraan);
-                vTrgtUserFU.html(data.user_fu);
                 vTipeService.html(data.tipe_service);
                 vHasilFU.val(data.status_fu);
             }
@@ -383,7 +366,7 @@
 
         function updateTableIndex() {
             $.ajax({
-                url: "{{ url('booking-general-repair/monitoring-dan-follow-up/list') }}",
+                url: "{{ url('booking-general-repair/monitoring-booking/list') }}",
                 method: "post",
                 data: {
                     start_date: iStartDate,
@@ -478,13 +461,6 @@
                 }
             });
 
-            btnExport.click(function (e) {
-                e.preventDefault();
-                let url = '{{ url('booking-general-repair/monitoring-dan-follow-up/export') }}/'+iStartDate+'/'+iEndDate+'/'+iStatusFU.val();
-                DownloadFile.src = url;
-                console.log(url);
-
-            });
             btnDetail.click(function (e) {
                 e.preventDefault();
                 getTableNotes();

@@ -51,18 +51,8 @@ class MasterDataKontenGambar extends Controller
 
     public function list() {
         try {
-            $data = msKonten::all();
-            $no = 0;
-            foreach ($data as $d) {
-                $result['data'][] = [
-                    'file_name' => $d->file_name,
-                    'file_location_laravel' => $d->file_location_laravel,
-                    'info' => $d->info,
-                    'no' => $no,
-                ];
-                $no++;
-            }
-            return json_encode($result);
+            $data['data'] = msKonten::all();
+            return json_encode($data);
         } catch (\Exception $ex) {
             return response()->json($ex);
         }
@@ -88,6 +78,11 @@ class MasterDataKontenGambar extends Controller
             $konten->file_name = $fileName;
             $konten->file_location_laravel = Storage::url($fileName);
             $konten->file_location = url('/').'/laravel-system/storage/app/public/'.$fileName;
+            if ($request->keterangan !== null) {
+                $konten->keterangan = $request->keterangan;
+            } else {
+                $konten->keterangan = '';
+            }
             $konten->info = $info;
             $konten->save();
         } catch (\Exception $ex) {

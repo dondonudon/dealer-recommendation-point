@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\publicFunc\GenerateNumber;
 use App\salesProspect;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -63,6 +64,7 @@ class SalesProspectInput extends Controller
             'Alamat' => 0,
             'Pekerjaan' => 0,
             'Kebutuhan Credit/Cash' => 0,
+            'Username Sales' => 0,
         ];
 
         switch ($extension) {
@@ -116,11 +118,21 @@ class SalesProspectInput extends Controller
                 case 'Kebutuhan Credit/Cash':
                     $fKey['Kebutuhan Credit/Cash'] = $i;
                     break;
+
+                case 'Username Sales':
+                    $fKey['Username Sales'] = $i;
+                    break;
             }
         }
 
         try {
             for ($i = 1; $i < count($fValue); $i++) {
+                $noTelp = $fValue[$i][ $fKey['No. Telp'] ];
+                if ($noTelp[0] == '0') {
+                    $noTelp = '+62'.substr($noTelp,1);
+                } elseif ($noTelp[0] == '8') {
+                    $noTelp = '+62'.$noTelp;
+                }
                 $prospect = new salesProspect();
                 $prospect->no_sales = GenerateNumber::generate('SA','sales_prospect','no_sales');
                 $prospect->nama_customer = $fValue[$i][ $fKey['Nama Customer'] ];
@@ -131,6 +143,9 @@ class SalesProspectInput extends Controller
                 $prospect->alamat = $fValue[$i][ $fKey['Alamat'] ];
                 $prospect->pekerjaan = $fValue[$i][ $fKey['Pekerjaan'] ];
                 $prospect->kebutuhan = $fValue[$i][ $fKey['Kebutuhan Credit/Cash'] ];
+                if ($fValue[$i][$fKey['Username Sales']] !== '' || $fValue[$i][$fKey['Username Sales']] !== null) {
+                    $prospect->salesman = $fValue[$i][ $fKey['Kebutuhan Credit/Cash'] ];
+                }
                 $prospect->username = $username;
                 $prospect->save();
             }
