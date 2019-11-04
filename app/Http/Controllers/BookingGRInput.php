@@ -152,8 +152,16 @@ class BookingGRInput extends Controller
                     $gr->model_kendaraan = $fValue[$i][ $key['model_kendaraan'] ];
                     $gr->tahun_kendaraan = $fValue[$i][ $key['tahun_kendaraan'] ];
                     $gr->keluhan = $fValue[$i][ $key['keluhan'] ];
-                    $gr->tgl_booking = date('Y-m-d',strtotime($fValue[$i][ $key['tgl_booking'] ]));
-                    $gr->jam_booking = date('H:i:s',strtotime($fValue[$i][ $key['jam_booking'] ]));
+                    if ($fValue[$i][ $key['tgl_booking'] ] == null) {
+                        $gr->tgl_booking = date('Y-m-d');
+                    } else {
+                        $gr->tgl_booking = date('Y-m-d',strtotime($fValue[$i][ $key['tgl_booking'] ]));
+                    }
+                    if ($fValue[$i][ $key['jam_booking'] ] == null) {
+                        $gr->jam_booking = date('H:i:s');
+                    } else {
+                        $gr->jam_booking = date('H:i:s',strtotime($fValue[$i][ $key['jam_booking'] ]));
+                    }
                     $gr->tipe_service = $fValue[$i][ $key['tipe_service'] ];
                     $gr->user_fu = $fValue[$i][ $key['user_fu'] ];
                     $gr->username = $username;

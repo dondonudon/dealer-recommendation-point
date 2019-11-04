@@ -4,6 +4,7 @@ use App\sysMenuGroup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,17 +22,34 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/login/{user}/{pass}',function($user,$pass) {
-    $user = DB::table('sys_user')
+    $sysUser = DB::table('sys_user')
         ->select('username','password')
         ->where('username','=',$user)
         ->first();
 
     $result = [];
-    if ($pass == Crypt::decryptString($user->password)) {
+    if ($pass == Crypt::decryptString($sysUser->password)) {
         $result[]['status'] = 'success';
     } else {
         $result[]['status'] = 'username atau password salah';
     }
 
     return json_encode($result);
+});
+
+Route::get('ganti-password/{user}/{pass}',function ($user,$pass) {
+    DB::beginTransaction();
+    try {
+        DB::table('sys_user')
+            ->where('username','=',$user)
+            ->update([
+                'password' => Crypt::encryptString($pass),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+    } catch (Exception $ex) {
+        DB::rollBack();
+        return response()->json($ex);
+    }
+    DB::commit();
+    return 'success';
 });
