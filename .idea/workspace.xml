@@ -4,7 +4,6 @@
     <list default="true" id="deadf7e9-81dd-451a-8d25-c13127b6b771" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingGRInput.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingGRInput.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -286,7 +285,8 @@
       <workItem from="1570692634042" duration="639000" />
       <workItem from="1571037570104" duration="1004000" />
       <workItem from="1571190746608" duration="199000" />
-      <workItem from="1572853145143" duration="572000" />
+      <workItem from="1572853145143" duration="981000" />
+      <workItem from="1573439027649" duration="1052000" />
     </task>
     <servers />
   </component>

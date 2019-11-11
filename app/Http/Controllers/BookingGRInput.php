@@ -69,8 +69,8 @@ class BookingGRInput extends Controller
             'model_kendaraan' => 0,
             'tahun_kendaraan' => 0,
             'keluhan' => 0,
-            'tgl_booking' => 0,
-            'jam_booking' => 0,
+            'tgl_booking' => null,
+            'jam_booking' => null,
             'tipe_service' => 0,
             'user_fu' => 0,
         ];
@@ -116,13 +116,13 @@ class BookingGRInput extends Controller
                     $key['keluhan'] = $i;
                     break;
 
-                case 'TANGGAL BOOKING':
-                    $key['tgl_booking'] = $i;
-                    break;
-
-                case 'JAM BOOKING':
-                    $key['jam_booking'] = $i;
-                    break;
+//                case 'TANGGAL BOOKING':
+//                    $key['tgl_booking'] = $i;
+//                    break;
+//
+//                case 'JAM BOOKING':
+//                    $key['jam_booking'] = $i;
+//                    break;
 
                 case 'TIPE SERVICE':
                     $key['tipe_service'] = $i;
