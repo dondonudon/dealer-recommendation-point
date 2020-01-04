@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="deadf7e9-81dd-451a-8d25-c13127b6b771" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dealer-recommendation-point.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dealer-recommendation-point.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingGRInput.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingGRInput.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,6 +147,11 @@
   </component>
   <component name="ProjectId" id="1OnrqzkQ5NlCjDnb36nMVvD0m52" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
@@ -177,18 +182,6 @@
       <recent name="$PROJECT_DIR$/public/vendor" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="JavaScript Debug.api.php">
     <configuration name="api.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/dealer-recommendation-point/routes/api.php" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -204,18 +197,15 @@
     </recent_temporary>
   </component>
   <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7b270ba7" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </treeState>
-      </serviceView>
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
     </option>
   </component>
   <component name="SvnConfiguration">
@@ -286,7 +276,9 @@
       <workItem from="1571037570104" duration="1004000" />
       <workItem from="1571190746608" duration="199000" />
       <workItem from="1572853145143" duration="981000" />
-      <workItem from="1573439027649" duration="1052000" />
+      <workItem from="1573439027649" duration="1217000" />
+      <workItem from="1573704261397" duration="160000" />
+      <workItem from="1578105282054" duration="4490000" />
     </task>
     <servers />
   </component>

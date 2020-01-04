@@ -114,3 +114,4 @@ Route::get('sales-prospect/input-prospect/sample',function () {
 Route::get('sales-prospect/performance-result','SalesProspectPerformanceResult@index');
 Route::post('sales-prospect/performance-result/list','SalesProspectPerformanceResult@list');
 
+Route::get('reminder-service/data','ReminderServiceData@index');
